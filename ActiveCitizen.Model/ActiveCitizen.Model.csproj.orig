@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{43C56219-1224-45DD-8CC1-2BBA0B7E85D7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ActiveCitizen.Model</RootNamespace>
+    <AssemblyName>ActiveCitizen.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Device" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CheckIn\CheckIn.cs" />
+    <Compile Include="Shared\Body.cs" />
+    <Compile Include="Shared\IAction.cs" />
+    <Compile Include="Shared\IFeedItem.cs" />
+    <Compile Include="Shared\Image.cs" />
+<<<<<<< HEAD
+    <Compile Include="Shared\Moscow\IMoscowDisctrict.cs" />
+    <Compile Include="StaticContent\FAQ\FaqListItem.cs" />
+    <Compile Include="StaticContent\FAQ\IFaqListItem.cs" />
+=======
+    <Compile Include="Shared\Moscow\MoscowDisctrict.cs" />
+>>>>>>> cb827b3d4ad2ae28abdaa6fc3d304ea71dd99bfc
+    <Compile Include="StaticContent\Result\AllResults.cs" />
+    <Compile Include="StaticContent\Result\BaseSection.cs" />
+    <Compile Include="StaticContent\Result\CityResult.cs" />
+    <Compile Include="StaticContent\Result\PollSection.cs" />
+    <Compile Include="StaticContent\Result\SolutionSection.cs" />
+    <Compile Include="StaticContent\Result\StatisticSection.cs" />
+    <Compile Include="UserContent\News.cs" />
+    <Compile Include="StaticContent\Result\LocalResult.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shared\IPoint.cs" />
+    <Compile Include="Shared\ITitle.cs" />
+    <Compile Include="User\Address.cs" />
+    <Compile Include="User\Badge\BaseBadge.cs" />
+    <Compile Include="User\Badge\MonthlyBadge.cs" />
+    <Compile Include="User\Moscow\Link2MPGU.cs" />
+    <Compile Include="User\Moscow\MoscowAddress.cs" />
+    <Compile Include="User\SocialNetwork\BaseSocialNetwork.cs" />
+    <Compile Include="User\SocialNetwork\Facebook.cs" />
+    <Compile Include="User\SocialNetwork\Github.cs" />
+    <Compile Include="User\SocialNetwork\Odnoklassniki.cs" />
+    <Compile Include="User\SocialNetwork\Twitter.cs" />
+    <Compile Include="User\SocialNetwork\Vkontakte.cs" />
+    <Compile Include="User\User.cs" />
+    <Compile Include="Vote\BaseVote.cs" />
+    <Compile Include="Vote\LizaAlert.cs" />
+    <Compile Include="Vote\Novelty.cs" />
+    <Compile Include="Vote\Poll.cs" />
+    <Compile Include="Vote\PublicHearing.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ActiveCitizen.Common\ActiveCitizen.Common.csproj">
+      <Project>{f1714347-15dd-4b33-bd22-fcfc29dcc08b}</Project>
+      <Name>ActiveCitizen.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
