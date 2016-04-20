@@ -10,29 +10,30 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using ActiveCitizen.Model.StaticContent.FAQ;
 using ActiveCitizenWeb.DataAccess.Context;
+using ActiveCitizenWeb.DataAccess.Provider;
 
 namespace ActiveCitizenWeb.StaticContentCMS.Controllers
 {
     public class FaqListItemsController : ApiController
     {
-        private readonly FaqContext db = null;
+        private readonly StaticContentProvider _staticContentProvider = null;
 
-        public FaqListItemsController(FaqContext context)
+        public FaqListItemsController(StaticContentProvider provider)
         {
-            db = context;
+            _staticContentProvider = provider;
         }
 
         // GET: api/FaqListItems
         public IQueryable<FaqListItem> GetFaqListItem()
         {
-            return db.FaqListItem;
+            return _staticContentProvider.GetAllItems().AsQueryable();
         }
 
         // GET: api/FaqListItems/5
         [ResponseType(typeof(FaqListItem))]
         public IHttpActionResult GetFaqListItem(int id)
         {
-            FaqListItem faqListItem = db.FaqListItem.Find(id);
+            FaqListItem faqListItem = _staticContentProvider.GetFaqListItem(id);
             if (faqListItem == null)
             {
                 return NotFound();
@@ -55,23 +56,12 @@ namespace ActiveCitizenWeb.StaticContentCMS.Controllers
                 return BadRequest();
             }
 
-            db.Entry(faqListItem).State = EntityState.Modified;
+            if (!_staticContentProvider.IsFaqListItemExists(id))
+            {
+                return NotFound();
+            }
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!FaqListItemExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            _staticContentProvider.PutFaqListItem(faqListItem);
 
             return StatusCode(HttpStatusCode.NoContent);
         }
@@ -85,8 +75,7 @@ namespace ActiveCitizenWeb.StaticContentCMS.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.FaqListItem.Add(faqListItem);
-            db.SaveChanges();
+            _staticContentProvider.PostFaqListItem(faqListItem);
 
             return CreatedAtRoute("DefaultApi", new { id = faqListItem.Id }, faqListItem);
         }
@@ -95,30 +84,24 @@ namespace ActiveCitizenWeb.StaticContentCMS.Controllers
         [ResponseType(typeof(FaqListItem))]
         public IHttpActionResult DeleteFaqListItem(int id)
         {
-            FaqListItem faqListItem = db.FaqListItem.Find(id);
-            if (faqListItem == null)
+            FaqListItem item = _staticContentProvider.DeleteFaqListItem(id);
+            if (item == null)
             {
                 return NotFound();
             }
-
-            db.FaqListItem.Remove(faqListItem);
-            db.SaveChanges();
-
-            return Ok(faqListItem);
+            else
+            {
+                return Ok(item);
+            }
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                db.Dispose();
+                _staticContentProvider.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private bool FaqListItemExists(int id)
-        {
-            return db.FaqListItem.Count(e => e.Id == id) > 0;
         }
     }
 }

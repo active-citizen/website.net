@@ -59,5 +59,14 @@ namespace ActiveCitizenWeb.StaticContentCMS.Controllers
         {
              return View(vm);
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _staticContentProvider.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }
