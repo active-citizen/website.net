@@ -71,6 +71,7 @@ namespace ActiveCitizenWeb.DataAccess.Provider
             return faqDbContext.FaqListCategory.ToList<FaqListCategory>();
         }
 
+        //TODO delete it and check, that context dispose is called 
         public void Dispose()
         {
             faqDbContext.Dispose();
