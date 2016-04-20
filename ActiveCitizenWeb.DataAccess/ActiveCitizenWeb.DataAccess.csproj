@@ -73,9 +73,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DEFAULT DATABASE\0001.sql" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Migrations\201604191658142_InitialCreate.resx">
       <DependentUpon>201604191658142_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
