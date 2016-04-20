@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ActiveCitizenWeb.StaticContentCMS.Models;
+using ActiveCitizen.LDAP.IdentityProvider;
 
 namespace ActiveCitizenWeb.StaticContentCMS.Controllers
 {
