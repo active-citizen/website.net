@@ -86,9 +86,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IdentityProvider\IdentityConfig.cs" />
-    <Compile Include="IdentityProvider\IdentityModels.cs" />
+    <Compile Include="IdentityProvider\ApplicationUserManager.cs" />
+    <Compile Include="IdentityProvider\ApplicationSignInManager.cs" />
+    <Compile Include="IdentityProvider\ApplicationUser.cs" />
+    <Compile Include="IdentityProvider\ApplicationDbContext.cs" />
     <Compile Include="IdentityProvider\LdapConnectionSettings.cs" />
+    <Compile Include="IdentityProvider\LdapConnector.cs" />
+    <Compile Include="IdentityProvider\LdapEntry.cs" />
     <Compile Include="IdentityProvider\LdapUserStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
