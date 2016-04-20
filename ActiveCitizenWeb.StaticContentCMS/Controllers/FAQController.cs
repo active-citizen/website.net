@@ -35,7 +35,16 @@ namespace ActiveCitizenWeb.StaticContentCMS.Controllers
 
         public ActionResult EditCategories()
         {
-            return View();
+            CategoriesVM vm = new CategoriesVM();
+            vm.Categories = _staticContentProvider.GetAllCategories();
+            return View(vm);
+        }
+
+        public ActionResult EditCategory(int id)
+        {
+            FaqListCategory vm = new FaqListCategory();
+            vm = _staticContentProvider.GetCategory(id);
+            return View(vm);
         }
 
         public ActionResult EditQuestion(int id)
@@ -43,21 +52,65 @@ namespace ActiveCitizenWeb.StaticContentCMS.Controllers
             FaqListItem item = _staticContentProvider.GetFaqListItem(id) ?? new FaqListItem();
 
             QuestionVM vm = _mapper.Map<QuestionVM>(item);
-
-            List<FaqListCategory> list = _staticContentProvider.GetAllCategories();
-
-            vm.CategoryNames = list.Select(category => new SelectListItem
-                    { Text = category.Name, Value = category.Id.ToString() }).ToList();
+            vm.CategoryNames = GetCategoryNames();
 
             return View(vm);
         }
 
+        public ActionResult NewQuestion()
+        {
+            QuestionVM vm = new QuestionVM();
+            vm.CategoryNames = GetCategoryNames();
+            vm.Category = new FaqListCategory();
+
+            //by defaul add to the first category
+            vm.Category.Id = _staticContentProvider.GetAllCategories().First().Id;
+
+            //and add to the end by default
+            vm.Order = _staticContentProvider.GetCategory(vm.Category.Id).Items.Max(c => c.Order) + 10;
+
+            return View("EditQuestion", vm);
+        }
+
+        private List<SelectListItem> GetCategoryNames()
+        {
+            List<FaqListCategory> listCategory = _staticContentProvider.GetAllCategories();
+
+            List<SelectListItem> listSelect = listCategory.Select(category => new SelectListItem {
+                Text = category.Name,
+                Value = category.Id.ToString()
+            }).ToList();
+
+            return listSelect;
+        }
+
+        public ActionResult NewCategory()
+        {
+            FaqListCategory vm = new FaqListCategory();
+            return View("EditCategory", vm);
+        }
+
         [HttpPost]
-        [ValidateInput(false)]
-        //TODO: how to use AllowHTM instead?
         public ActionResult SaveQuestion(QuestionVM vm)
         {
-             return View(vm);
+            FaqListItem item = _mapper.Map<FaqListItem>(vm);
+            item.Category = _staticContentProvider.GetCategory(item.Category.Id);
+
+            if (item.Id > 0) _staticContentProvider.PutFaqItem(item);
+            else _staticContentProvider.PostFaqItem(item);
+
+            vm.CategoryNames = GetCategoryNames();
+
+            return View("EditQuestion", vm);
+        }
+
+        [HttpPost]
+        public ActionResult SaveCategory(FaqListCategory vm)
+        {
+            if (vm.Id > 0) _staticContentProvider.PutFaqItem(vm);
+            else _staticContentProvider.PostFaqItem(vm);
+
+            return View("Editcategory", vm);
         }
 
         protected override void Dispose(bool disposing)

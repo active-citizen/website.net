@@ -231,6 +231,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\FAQController.cs" />
+    <Compile Include="Controllers\FaqCategoryController.cs" />
     <Compile Include="Controllers\FaqListItemsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -310,6 +311,7 @@
     <Content Include="Views\FAQ\Index.cshtml" />
     <Content Include="Views\FAQ\EditCategories.cshtml" />
     <Content Include="Views\FAQ\EditQuestion.cshtml" />
+    <Content Include="Views\FAQ\EditCategory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

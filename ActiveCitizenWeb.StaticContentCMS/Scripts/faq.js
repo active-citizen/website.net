@@ -21,7 +21,7 @@ function deletequestion() {
     var ok = confirm("Вы действительно хотите удалить вопрос?");
     if (!ok) return;
 
-    ok = confirm("Вы абсолтно уверены, что хотете удалить этот вопрос?\n\nЭту операцию нельзя отменить!");
+    ok = confirm("Вы абсолютно уверены, что хотете удалить этот вопрос?\n\nЭту операцию нельзя отменить!");
     if (!ok) return; 
 
     $.ajax({
@@ -33,6 +33,30 @@ function deletequestion() {
     });
 }
 
+function deletecategory() {
+    if (selectedrowid == null) {
+        alert("Пожалуйста, выберите раздел, кликнув на ссылку 'Выбрать' справа от соответствующего раздела\n\nВнимание, удаление раздела нельзя отменить, поэтому будьте, пожалуйста, внимательны!");
+        return;
+    }
+
+    var ok = confirm("Вы действительно хотите удалить раздел?");
+    if (!ok) return;
+
+    ok = confirm("Вы абсолютно уверены, что хотете удалить этот раздел?\n\nЭту операцию нельзя отменить!");
+    if (!ok) return;
+
+    $.ajax({
+        url: 'http://localhost:51734/api/FaqCategory/' + selectedrowid,
+        type: 'DELETE',
+        success: function (response) {
+            $(getrow(selectedrowid)).remove();
+        },
+        error: function (response) {
+            if(response.status == 409) alert(response.responseText);
+        } 
+    });
+}
+
 function editquestion() {
     if (selectedrowid == null) {
         alert("Пожалуйста, выберите вопрос, кликнув на ссылку 'Выбрать' справа от соответствующего вопроса");
@@ -40,4 +64,21 @@ function editquestion() {
     }
 
     window.location.href = "FAQ/EditQuestion/"+selectedrowid;
+}
+
+function editcategory() {
+    if (selectedrowid == null) {
+        alert("Пожалуйста, выберите раздел, кликнув на ссылку 'Выбрать' справа от соответствующего раздела");
+        return;
+    }
+
+    window.location.href = "/EditCategory/" + selectedrowid;
+}
+
+function newquestion() {
+    window.location.href = "FAQ/NewQuestion";
+}
+
+function newcategory() {
+    window.location.href = "/NewCategory";
 }

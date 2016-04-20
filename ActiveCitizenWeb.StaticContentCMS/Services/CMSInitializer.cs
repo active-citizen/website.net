@@ -16,6 +16,7 @@ namespace ActiveCitizenWeb.StaticContentCMS.Services
         {
             builder.RegisterType<FAQController>().AsSelf();
             builder.RegisterType<FaqListItemsController>().AsSelf();
+            builder.RegisterType<FaqCategoryController>().AsSelf();
             builder.RegisterInstance(InitializeMapping()).SingleInstance();
         }
 

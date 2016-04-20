@@ -51,6 +51,7 @@
     <Compile Include="Shared\Moscow\MoscowDisctrict.cs" />
     <Compile Include="StaticContent\FAQ\FaqListCategory.cs" />
     <Compile Include="StaticContent\FAQ\FaqListItem.cs" />
+    <Compile Include="StaticContent\FAQ\IFaqItem.cs" />
     <Compile Include="StaticContent\Result\AllResults.cs" />
     <Compile Include="StaticContent\Result\BaseSection.cs" />
     <Compile Include="StaticContent\Result\CityResult.cs" />

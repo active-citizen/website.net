@@ -61,7 +61,7 @@ namespace ActiveCitizenWeb.StaticContentCMS.Controllers
                 return NotFound();
             }
 
-            _staticContentProvider.PutFaqListItem(faqListItem);
+            _staticContentProvider.PutFaqItem(faqListItem);
 
             return StatusCode(HttpStatusCode.NoContent);
         }
@@ -75,7 +75,7 @@ namespace ActiveCitizenWeb.StaticContentCMS.Controllers
                 return BadRequest(ModelState);
             }
 
-            _staticContentProvider.PostFaqListItem(faqListItem);
+            _staticContentProvider.PostFaqItem(faqListItem);
 
             return CreatedAtRoute("DefaultApi", new { id = faqListItem.Id }, faqListItem);
         }

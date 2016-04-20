@@ -33,12 +33,25 @@ namespace ActiveCitizenWeb.DataAccess.Provider
             return faqDbContext.FaqListItem.Count(e => e.Id == id) > 0;
         }
 
-        public void PutFaqListItem(FaqListItem item)
+        public bool IsFaqListCategoryDeletable(int id)
+        {
+            //TODO does not work!
+            //return faqDbContext.FaqListItem.Count(e => e.Category.Id == id) > 0;
+
+            //so replace with
+            int count = (from c in faqDbContext.FaqListItem
+                         where c.Category.Id == id
+                         select c).Count();
+
+            return count == 0;
+        }
+
+        public void PutFaqItem(IFaqItem item)
         {
             try
             {
                 faqDbContext.Entry(item).State = EntityState.Modified;
-                faqDbContext.SaveChanges();
+                SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -47,10 +60,21 @@ namespace ActiveCitizenWeb.DataAccess.Provider
             }
         }
 
-        public void PostFaqListItem(FaqListItem item)
+        public void PostFaqItem(FaqListItem item)
         {
             faqDbContext.FaqListItem.Add(item);
-            faqDbContext.SaveChanges();
+            SaveChanges();
+        }
+
+        public void PostFaqItem(FaqListCategory item)
+        {
+            faqDbContext.FaqListCategory.Add(item);
+            SaveChanges();
+        }
+
+        public FaqListCategory GetCategory(int id)
+        {
+            return faqDbContext.FaqListCategory.Find(id);
         }
 
         public FaqListItem DeleteFaqListItem(int id)
@@ -60,7 +84,25 @@ namespace ActiveCitizenWeb.DataAccess.Provider
             if (item != null)
             {
                 faqDbContext.FaqListItem.Remove(item);
-                faqDbContext.SaveChanges();
+                SaveChanges();
+            }
+
+            return item;
+        }
+
+        public FaqListCategory DeleteFaqCategory(int id)
+        {
+            if (!IsFaqListCategoryDeletable(id))
+            {
+                throw new NotEmptyException("Нельзя удалить раздел, так как в разделе есть вопросы, вначале удалите все вопросы из раздела, а потом удаляйте раздел.");
+            }
+
+            FaqListCategory item = GetCategory(id);
+
+            if (item != null)
+            {
+                faqDbContext.FaqListCategory.Remove(item);
+                SaveChanges();
             }
 
             return item;
@@ -71,10 +113,30 @@ namespace ActiveCitizenWeb.DataAccess.Provider
             return faqDbContext.FaqListCategory.ToList<FaqListCategory>();
         }
 
+        private void SaveChanges()
+        {
+            try
+            {
+                faqDbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         //TODO delete it and check, that context dispose is called 
         public void Dispose()
         {
             faqDbContext.Dispose();
+        }
+    }
+
+    public class NotEmptyException : Exception
+    {
+        public NotEmptyException(string errorMassage) : base(errorMassage)
+        {
+            
         }
     }
 }

@@ -13,6 +13,7 @@ namespace ActiveCitizenWeb.StaticContentCMS.ViewModel.FAQ
 
         public string Question { get; set; }
 
+        [AllowHtml]
         public string Answer { get; set; }
 
         public int Order { get; set; }

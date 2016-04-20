@@ -1,4 +1,8 @@
 ﻿@model ActiveCitizenWeb.StaticContentCMS.ViewModel.FAQ.CategoriesVM
+@using ActiveCitizen.Model.StaticContent.FAQ;
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/faq.js"></script>
 
 @{
     ViewBag.Title = "EditCategories";
@@ -8,7 +12,30 @@
     <div class="fit-left">
         <h2>Редактировать разделы</h2>
     </div><div class="fit-rigth">
-        <h3><a href="../FAQ">Редактировать вопросы</a></h3>
+        <h3><a href="../FAQ">Обратно к списку вопросов...</a></h3>
+    </div>
+    <br />
+    <div>
+        <input type="button" onclick="newcategory()" value="Новый раздел" />
+        <input type="button" onclick="deletecategory()" value="Удалить выбранный раздел" />
+        <input type="button" onclick="editcategory()" value="Редактировать выбранный раздел" />
+    </div>
+
+    <div class="questions">
+        <table class="questions" border="1">
+            <tr class="header">
+                <td width="80%">Название раздела</td>
+                <td width="5%">Порядок</td>
+            </tr>
+            @foreach (FaqListCategory cat in Model.Categories)
+            {
+                <tr id=@cat.Id.ToString().Insert(0,"tblrow")>
+                    <td>@cat.Name</td>
+                    <td align="center">@cat.Order</td>
+                    <td><a onclick="selectquestion(@cat.Id)" href="#">Выбрать</a></td>
+                </tr>
+            }
+        </table>
     </div>
 </div>
 
