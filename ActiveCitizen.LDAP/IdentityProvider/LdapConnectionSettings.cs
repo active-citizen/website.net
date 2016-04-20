@@ -13,7 +13,7 @@ namespace ActiveCitizen.LDAP.IdentityProvider
 
         private static readonly Lazy<LdapConnectionSettings> _defaults = new Lazy<LdapConnectionSettings>(()=>
         {
-            var connectionSettings = new LdapConnectionSettings { Server = "localhost:10389", BaseDN = "ou=system", ServiceUserDN = "uid=admin,ou=system", ServiceUserPassword = "<password goes here>", UserIdAttributeName = "DN", UserNameAttributeName = "cn" };
+            var connectionSettings = new LdapConnectionSettings { Server = "localhost:10389", BaseDN = "ou=system", ServiceUserDN = "uid=admin,ou=system", ServiceUserPassword = "<password goes here>", UserIdAttributeName = "entryUUID", UserNameAttributeName = "cn" };
 
             return connectionSettings;
         });
