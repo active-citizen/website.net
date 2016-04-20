@@ -243,6 +243,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CMSInitializer.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\FAQ\CategoriesVM.cs" />
     <Compile Include="ViewModel\FAQ\QuestionsVM.cs" />
     <Compile Include="ViewModel\FAQ\QuestionVM.cs" />

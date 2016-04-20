@@ -22,13 +22,19 @@ function deletequestion() {
     if (!ok) return;
 
     ok = confirm("Вы абсолютно уверены, что хотете удалить этот вопрос?\n\nЭту операцию нельзя отменить!");
-    if (!ok) return; 
+    if (!ok) return;
+
+    debugger;
 
     $.ajax({
         url: 'api/FaqListItems/' + selectedrowid,
         type: 'DELETE',
         success: function (response) {
+            debugger;
             $(getrow(selectedrowid)).remove();
+        },
+        error: function (response) {
+            alert(response.toString());
         }
     });
 }
@@ -72,7 +78,7 @@ function editcategory() {
         return;
     }
 
-    window.location.href = "/EditCategory/" + selectedrowid;
+    window.location.href = "./EditCategory/" + selectedrowid;
 }
 
 function newquestion() {
@@ -80,5 +86,5 @@ function newquestion() {
 }
 
 function newcategory() {
-    window.location.href = "/NewCategory";
+    window.location.href = "./NewCategory";
 }

@@ -87,6 +87,10 @@ namespace ActiveCitizenWeb.StaticContentCMS.Controllers
         public ActionResult NewCategory()
         {
             FaqListCategory vm = new FaqListCategory();
+            
+            //by default next order
+            vm.Order = _staticContentProvider.GetAllCategories().Max(c => c.Order) + 1;
+
             return View("EditCategory", vm);
         }
 
