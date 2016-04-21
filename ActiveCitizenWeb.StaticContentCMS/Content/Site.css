@@ -51,3 +51,7 @@ div.fit-rigth {
 textarea.question-area {
     width: 100%;
 }
+
+div.validation-error{
+    color: red;
+}
