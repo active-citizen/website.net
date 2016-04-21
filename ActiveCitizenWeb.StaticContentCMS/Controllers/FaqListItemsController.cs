@@ -15,9 +15,9 @@ namespace ActiveCitizenWeb.StaticContentCMS.Controllers
 {
     public class FaqListItemsController : ApiController
     {
-        private readonly FaqContext db = null;
+        private readonly IFaqContext db = null;
 
-        public FaqListItemsController(FaqContext context)
+        public FaqListItemsController(IFaqContext context)
         {
             db = context;
         }

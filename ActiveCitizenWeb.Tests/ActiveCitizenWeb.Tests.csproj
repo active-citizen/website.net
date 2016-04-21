@@ -33,8 +33,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Moq, Version=4.2.1510.2205, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moq.4.2.1510.2205\lib\net40\Moq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -82,6 +87,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContentProviders\FaqDbContextMock.cs" />
+    <Compile Include="ContentProviders\StaticContentProviderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>
@@ -92,6 +99,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ActiveCitizen.Model\ActiveCitizen.Model.csproj">
+      <Project>{43c56219-1224-45dd-8cc1-2bba0b7e85d7}</Project>
+      <Name>ActiveCitizen.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ActiveCitizenWeb.DataAccess\ActiveCitizenWeb.DataAccess.csproj">
+      <Project>{94DAC6B3-D38A-466E-A13D-5D4C62374C0A}</Project>
+      <Name>ActiveCitizenWeb.DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ActiveCitizenWeb.UI\ActiveCitizenWeb.UI.csproj">
       <Project>{F6133536-141B-4FFE-AB1F-AEF6F159601E}</Project>
       <Name>ActiveCitizenWeb.UI</Name>

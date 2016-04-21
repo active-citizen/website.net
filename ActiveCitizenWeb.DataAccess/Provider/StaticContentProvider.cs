@@ -9,9 +9,9 @@ namespace ActiveCitizenWeb.DataAccess.Provider
 {
     public class StaticContentProvider
     {
-        private readonly FaqContext faqDbContext;
+        private readonly IFaqContext faqDbContext;
 
-        public StaticContentProvider(FaqContext faqDbContext)
+        public StaticContentProvider(IFaqContext faqDbContext)
         {
             this.faqDbContext = faqDbContext;
         }

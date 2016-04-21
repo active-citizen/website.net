@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\FaqContext.cs" />
+    <Compile Include="Context\IFaqContext.cs" />
     <Compile Include="Migrations\201604191658142_InitialCreate.cs" />
     <Compile Include="Migrations\201604191658142_InitialCreate.Designer.cs">
       <DependentUpon>201604191658142_InitialCreate.cs</DependentUpon>
