@@ -23,21 +23,19 @@ namespace ActiveCitizenWeb.StaticContentCMS.Controllers
         [ResponseType(typeof(FaqListCategory))]
         public IHttpActionResult DeleteFaqCategory(int id)
         {
-            try
-            {
-                FaqListCategory item = _staticContentProvider.DeleteFaqCategory(id);
-                if (item == null)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    return Ok(item);
-                }
+            if (!_staticContentProvider.IsFaqListCategoryDeletable(id))
+            { 
+                return Content(HttpStatusCode.Conflict, StaticContentProvider.CannotDelete);
             }
-            catch (NotEmptyException ex)
+
+            FaqListCategory item = _staticContentProvider.DeleteFaqCategory(id);
+            if (item == null)
             {
-                return Content(HttpStatusCode.Conflict, ex.Message);
+                return NotFound();
+            }
+            else
+            {
+                return Ok(item);
             }
          }
 

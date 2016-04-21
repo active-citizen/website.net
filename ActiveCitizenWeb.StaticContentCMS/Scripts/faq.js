@@ -27,7 +27,7 @@ function deletequestion() {
     debugger;
 
     $.ajax({
-        url: 'api/FaqListItems/' + selectedrowid,
+        url: '/api/FaqListItems/' + selectedrowid,
         type: 'DELETE',
         success: function (response) {
             debugger;
@@ -52,7 +52,7 @@ function deletecategory() {
     if (!ok) return;
 
     $.ajax({
-        url: 'http://localhost:51734/api/FaqCategory/' + selectedrowid,
+        url: '/api/FaqCategory/' + selectedrowid,
         type: 'DELETE',
         success: function (response) {
             $(getrow(selectedrowid)).remove();
@@ -69,7 +69,7 @@ function editquestion() {
         return;
     }
 
-    window.location.href = "FAQ/EditQuestion/"+selectedrowid;
+    window.location.href = "/FAQ/EditQuestion/"+selectedrowid;
 }
 
 function editcategory() {
@@ -78,13 +78,13 @@ function editcategory() {
         return;
     }
 
-    window.location.href = "./EditCategory/" + selectedrowid;
+    window.location.href = "/FAQ/EditCategory/" + selectedrowid;
 }
 
 function newquestion() {
-    window.location.href = "FAQ/NewQuestion";
+    window.location.href = "/FAQ/NewQuestion";
 }
 
 function newcategory() {
-    window.location.href = "./NewCategory";
+    window.location.href = "/FAQ/NewCategory";
 }

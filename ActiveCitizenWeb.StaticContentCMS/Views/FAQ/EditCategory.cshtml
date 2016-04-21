@@ -3,7 +3,9 @@
 @{
     ViewBag.Title = "EditCategory";
 }
-
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 <div>
     <div class="fit-left">
         <h2>Редактировать раздел</h2>
@@ -16,7 +18,7 @@
     <form action="~/FAQ/SaveCategory" class="fill" method="post">
         <b>Название раздела:</b><br />
         @Html.TextAreaFor(m => m.Name, new { @class = "question-area" })
-        @Html.ValidationMessageFor(m => m.Name, "Название раздела не может быть пустым", new { @class = "validation-error"})
+        @Html.ValidationMessageFor(m => m.Name, "Название раздела не может быть пустым")
         <br /><br />
         <b>Выберите очередность в которой будет отображаться раздел:</b>
         @Html.TextBoxFor(m => m.Order)

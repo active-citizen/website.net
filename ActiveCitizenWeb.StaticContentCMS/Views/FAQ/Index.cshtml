@@ -12,7 +12,7 @@
     <div class="fit-left">
         <h2>Редактировать вопросы</h2>
     </div><div class="fit-rigth">
-        <h3><a href="FAQ/EditCategories">Редактировать разделы</a></h3>
+        <h3><a href="~/FAQ/EditCategories">Редактировать разделы</a></h3>
     </div>
 </div>
 
@@ -36,7 +36,7 @@
                 <td>@item.Question.Substring(0, Math.Min(256, @item.Question.Length)) ...</td>
                 <td>@item.Answer.Substring(0, Math.Min(256, @item.Answer.Length)) ...</td>
                 <td align="center">@item.Order</td>
-                <td><a onclick="selectquestion(@item.Id);" href="#">Выбрать</a></td>
+                <td><a onclick="selectquestion(@item.Id); return false;" href="#">Выбрать</a></td>
             </tr>
         }
     </table>

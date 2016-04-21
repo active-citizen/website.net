@@ -35,22 +35,17 @@ namespace ActiveCitizenWeb.DataAccess.Provider
 
         public bool IsFaqListCategoryDeletable(int id)
         {
-            //TODO does not work!
-            //return faqDbContext.FaqListItem.Count(e => e.Category.Id == id) > 0;
+            bool any = faqDbContext.FaqListItem.Any(e => e.Category.Id == id);
 
-            //so replace with
-            int count = (from c in faqDbContext.FaqListItem
-                         where c.Category.Id == id
-                         select c).Count();
-
-            return count == 0;
+            return !any;
         }
+        public static string CannotDelete = @"Нельзя удалить раздел, так как в разделе есть вопросы, вначале удалите все вопросы из раздела, а потом удаляйте раздел.";
 
-        public void PutFaqItem(IFaqItem item)
+        public void PutFaqItem<T>(T item) where T : class
         {
             try
             {
-                faqDbContext.Entry(item).State = EntityState.Modified;
+                faqDbContext.Entry<T>(item).State = EntityState.Modified;
                 SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
@@ -92,11 +87,6 @@ namespace ActiveCitizenWeb.DataAccess.Provider
 
         public FaqListCategory DeleteFaqCategory(int id)
         {
-            if (!IsFaqListCategoryDeletable(id))
-            {
-                throw new NotEmptyException("Нельзя удалить раздел, так как в разделе есть вопросы, вначале удалите все вопросы из раздела, а потом удаляйте раздел.");
-            }
-
             FaqListCategory item = GetCategory(id);
 
             if (item != null)
@@ -129,14 +119,6 @@ namespace ActiveCitizenWeb.DataAccess.Provider
         public void Dispose()
         {
             faqDbContext.Dispose();
-        }
-    }
-
-    public class NotEmptyException : Exception
-    {
-        public NotEmptyException(string errorMassage) : base(errorMassage)
-        {
-            
         }
     }
 }

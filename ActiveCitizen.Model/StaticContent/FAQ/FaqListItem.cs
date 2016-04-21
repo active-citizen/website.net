@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ActiveCitizen.Model.StaticContent.FAQ
 {
-    public class FaqListItem : IFaqItem
+    public class FaqListItem
     {
         [Key]
         public int Id { get; set; }

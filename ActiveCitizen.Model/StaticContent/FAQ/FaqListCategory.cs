@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ActiveCitizen.Model.StaticContent.FAQ
 {
-    public class FaqListCategory : IFaqItem
+    public class FaqListCategory
     {
         public FaqListCategory()
         {

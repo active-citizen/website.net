@@ -32,7 +32,7 @@
                 <tr id=@cat.Id.ToString().Insert(0,"tblrow")>
                     <td>@cat.Name</td>
                     <td align="center">@cat.Order</td>
-                    <td><a onclick="selectquestion(@cat.Id)" href="#">Выбрать</a></td>
+                    <td><a onclick="selectquestion(@cat.Id); return false;" href="#">Выбрать</a></td>
                 </tr>
             }
         </table>
