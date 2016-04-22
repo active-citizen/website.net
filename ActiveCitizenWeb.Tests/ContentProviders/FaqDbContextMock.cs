@@ -2,23 +2,24 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ActiveCitizen.Model.StaticContent.FAQ;
 using System.Data.Entity;
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.Linq.Expressions;
+using System.Data.Entity.Infrastructure;
 
 namespace ActiveCitizenWeb.Tests.ContentProviders
 {
-    internal class FaqListItemDbSetMock : IDbSet<FaqListItem>
+    internal class DbSetMock<T> : IDbSet<T> where T : class
     {
-        private readonly IQueryable<FaqListItem> items;
+        private readonly IQueryable<T> items;
+        private readonly Func<T, object[], bool> findByKeysExpression;
 
-        public FaqListItemDbSetMock(List<FaqListItem> items)
+        public DbSetMock(List<T> items, Func<T, object[], bool> findByKeysExpression)
         {
             this.items = items.AsQueryable();
+            this.findByKeysExpression = findByKeysExpression;
         }
 
         public Type ElementType
@@ -37,7 +38,7 @@ namespace ActiveCitizenWeb.Tests.ContentProviders
             }
         }
 
-        public ObservableCollection<FaqListItem> Local
+        public ObservableCollection<T> Local
         {
             get
             {
@@ -53,37 +54,37 @@ namespace ActiveCitizenWeb.Tests.ContentProviders
             }
         }
 
-        public FaqListItem Add(FaqListItem entity)
+        public T Add(T entity)
         {
             throw new NotImplementedException();
         }
 
-        public FaqListItem Attach(FaqListItem entity)
+        public T Attach(T entity)
         {
             throw new NotImplementedException();
         }
 
-        public FaqListItem Create()
+        public T Create()
         {
             throw new NotImplementedException();
         }
 
-        public FaqListItem Find(params object[] keyValues)
+        public T Find(params object[] keyValues)
         {
-            return items.FirstOrDefault(i=>i.Id.Equals(keyValues[0]));
+            return items.FirstOrDefault(i => findByKeysExpression(i, keyValues));
         }
 
-        public IEnumerator<FaqListItem> GetEnumerator()
+        public IEnumerator<T> GetEnumerator()
         {
             return items.GetEnumerator();
         }
 
-        public FaqListItem Remove(FaqListItem entity)
+        public T Remove(T entity)
         {
             throw new NotImplementedException();
         }
 
-        TDerivedEntity IDbSet<FaqListItem>.Create<TDerivedEntity>()
+        TDerivedEntity IDbSet<T>.Create<TDerivedEntity>()
         {
             throw new NotImplementedException();
         }
@@ -98,16 +99,25 @@ namespace ActiveCitizenWeb.Tests.ContentProviders
     {
         private readonly IDbSet<FaqListItem> items;
 
-        public FaqDbContextMock(List<FaqListItem> items)
+        private readonly IDbSet<FaqListCategory> categories;
+
+        public FaqDbContextMock(List<FaqListItem> items, List<FaqListCategory> categories)
         {
-            this.items = new FaqListItemDbSetMock(items);
+            if (items != null)
+            {
+                this.items = new DbSetMock<FaqListItem>(items, (entry, keys) => entry.Id.Equals(keys[0]));
+            }
+            if (categories != null)
+            {
+                this.categories = new DbSetMock<FaqListCategory>(categories, (entry, keys) => entry.Id.Equals(keys[0]));
+            }
         }
 
         public IDbSet<FaqListCategory> FaqListCategory
         {
             get
             {
-                throw new NotImplementedException();
+                return categories;
             }
 
             set
@@ -127,6 +137,26 @@ namespace ActiveCitizenWeb.Tests.ContentProviders
             {
                 throw new NotImplementedException();
             }
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+
+        public DbEntityEntry Entry(object entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class
+        {
+            throw new NotImplementedException();
+        }
+
+        public int SaveChanges()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -7,7 +7,7 @@ using ActiveCitizenWeb.DataAccess.Context;
 
 namespace ActiveCitizenWeb.DataAccess.Provider
 {
-    public class StaticContentProvider
+    public class StaticContentProvider : IStaticContentProvider
     {
         private readonly IFaqContext faqDbContext;
 

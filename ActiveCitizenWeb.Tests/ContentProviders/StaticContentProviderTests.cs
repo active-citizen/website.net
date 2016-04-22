@@ -15,7 +15,7 @@ namespace ActiveCitizenWeb.Tests.ContentProviders
     [TestClass]
     public class StaticContentProviderTests
     {
-        private StaticContentProvider provider;
+        private IStaticContentProvider provider;
         private Mock<IFaqContext> dbContextMock;
 
         [TestInitialize]
@@ -49,7 +49,7 @@ namespace ActiveCitizenWeb.Tests.ContentProviders
                 new FaqListItem { Id = 111 }
             };
 
-            var faqDbContextMock = new FaqDbContextMock(data);
+            var faqDbContextMock = new FaqDbContextMock(data, null);
 
             provider = new StaticContentProvider(faqDbContextMock);
 

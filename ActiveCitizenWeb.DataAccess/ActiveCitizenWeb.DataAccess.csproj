@@ -59,6 +59,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Provider\IStaticContentProvider.cs" />
     <Compile Include="Provider\StaticContentProvider.cs" />
   </ItemGroup>
   <ItemGroup>
