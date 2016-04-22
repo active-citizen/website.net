@@ -1,0 +1,45 @@
+﻿@model ActiveCitizen.Model.StaticContent.FAQ.FaqListCategory
+
+@{
+    ViewBag.Title = "EditCategory";
+}
+<script src="~/Scripts/faq.js"></script>
+<div>
+    <div class="fit-left">
+        <h2>Редактировать раздел</h2>
+    </div><div class="fit-rigth">
+        <h3><a href="~/FAQ/Index">Обратно к списку вопросов</a></h3>
+    </div>
+</div>
+
+<div class="fill">
+    <form action="~/FAQ/SaveCategory" class="fill" method="post">
+        <b>Название раздела:</b><br />
+        @Html.TextAreaFor(m => m.Name, new { @class = "question-area" })
+        @Html.ValidationMessageFor(m => m.Name, "Название раздела не может быть пустым")
+        <br /><br />
+        <b>Выберите очередность в которой будет отображаться раздел:</b>
+        @Html.TextBoxFor(m => m.Order)
+        @Html.ValidationMessageFor(m => m.Order, "Укажите очередность в которой будет отображаться этот раздел")
+        <br /><br />
+
+        @Html.HiddenFor(m => m.Id)
+
+        <div class="fit-left">
+            <input type="submit" value="Сохранить изменения" />
+            <input type="button" value="Отмена" onclick="window.location.href = '/FAQ/Index';" />
+        </div><div class="fit-rigth">
+        @if(Model.Id != 0)
+        {
+            <input type="button" value="Удалить раздел" onclick="deletecategory(@Model.Id);" />
+        }
+        </div>
+        @if (TempData["Error"] != null)
+        {
+            <span class="field-validation-error">@TempData["Error"]</span>
+        }
+
+    </form>
+</div>
+
+

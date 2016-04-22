@@ -6,8 +6,9 @@ using ActiveCitizen.Model.StaticContent.FAQ;
 
 namespace ActiveCitizenWeb.StaticContentCMS.ViewModel.FAQ
 {
-    public class QuestionsVM
+    public class QuestionsVM : BaseViewModel
     {
         public List<FaqListItem> Questions { get; set; }
+        public List<FaqListCategory> Categories { get; set; }
     }
 }

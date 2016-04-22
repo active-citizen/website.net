@@ -3,32 +3,55 @@
 @{
     ViewBag.Title = "EditQuestion";
 }
+<script src="~/Scripts/faq.js"></script>
+<script src="~/Scripts/tinymce/tinymce.js"></script>
+
+<script type="text/javascript">
+tinymce.init({
+    selector: "textarea#answer",
+plugins: [
+    "advlist autolink lists link image charmap preview anchor",
+    "searchreplace visualblocks code fullscreen",
+    "insertdatetime table contextmenu paste"
+],
+toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+});
+</script>
 
 <div>
     <div class="fit-left">
         <h2>Редактировать вопрос</h2>
     </div><div class="fit-rigth">
-        <h3><a href="../">Обратно к списку вопросов</a></h3>
+        <h3><a href="/FAQ/Index">Обратно к списку вопросов</a></h3>
     </div>
 </div>
 
 <div class="fill">
-    <form action="~/FAQ/SaveQuestion" class="fill" method="post">
+    @using (Html.BeginForm("SaveQuestion","FAQ", FormMethod.Post)) {
         <b>Вопрос:</b><br />
         @Html.TextAreaFor(m => m.Question, new { @class = "question-area"})
+        @Html.ValidationMessageFor(m => m.Question, "Вопрос не может быть пустым")
         <br /><br />
-        <b>Ответ (можно использовать HTML теги):</b><br />
-        @Html.TextAreaFor(m => m.Answer, new { @class = "question-area", @rows = "20" })
+        <b>Ответ:</b><br />
+        @Html.TextAreaFor(m => m.Answer, new { @class = "question-area", @rows = "20", @id = "answer" })
+        @Html.ValidationMessageFor(m => m.Answer, "Ответ не может быть пустым")
         <br /><br />
-        <b>Выберите категорию, в которой будет отображаться вопрос:</b>
+        <b>Выберите раздел, в котором будет отображаться вопрос:</b>
         @Html.DropDownListFor(m => m.Category.Id, Model.CategoryNames)
         <br /><br />
-        <b>Выберите очередность в которой будет отображаться вопрос в категории:</b>
+        <b>Выберите очередность в которой будет отображаться вопрос в разделе:</b>
         @Html.TextBoxFor(m => m.Order)
+        @Html.ValidationMessageFor(m => m.Order, "Укажите очередность вопроса в разделе")
         <br /><br />
 
         @Html.HiddenFor(m => m.Id)
-        <input type="submit" value="Сохранить изменения" />
-    </form>
+        @Html.HiddenFor(m => m.Category.Name)
+        <div class="fit-left">
+            <input type="submit" value="Сохранить изменения" />
+            <input type="button" value="Отмена (вернуться к списку)" onclick="window.location.href = '/FAQ/Index';" />
+        </div><div class="fit-rigth">
+            <input type="button" value="Удалить вопрос" onclick="deletequestion(@Model.Id)" />
+        </div>
+    }
 </div>
 
