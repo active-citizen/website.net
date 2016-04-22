@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace ActiveCitizenWeb.Tests.Controllers
 {
+    //push travis
     [TestClass]
     public class FaqControllerTests
     {
@@ -18,7 +19,6 @@ namespace ActiveCitizenWeb.Tests.Controllers
         [TestMethod]
         public void IndexFaqListItems()
         {
-
             var category1 = new FaqListCategory { Id = 1, Order = 1 };
             var category2 = new FaqListCategory { Id = 2, Order = 2 };
             var category3 = new FaqListCategory { Id = 3 };
