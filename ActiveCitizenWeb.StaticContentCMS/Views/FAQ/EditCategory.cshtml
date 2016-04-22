@@ -3,14 +3,12 @@
 @{
     ViewBag.Title = "EditCategory";
 }
-<script src="~/Scripts/jquery-1.10.2.js"></script>
-<script src="~/Scripts/jquery.validate.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<script src="~/Scripts/faq.js"></script>
 <div>
     <div class="fit-left">
         <h2>Редактировать раздел</h2>
     </div><div class="fit-rigth">
-        <h3><a href="~/FAQ/EditCategories">Обратно к списку разделов...</a></h3>
+        <h3><a href="~/FAQ/Index">Обратно к списку вопросов</a></h3>
     </div>
 </div>
 
@@ -22,10 +20,25 @@
         <br /><br />
         <b>Выберите очередность в которой будет отображаться раздел:</b>
         @Html.TextBoxFor(m => m.Order)
+        @Html.ValidationMessageFor(m => m.Order, "Укажите очередность в которой будет отображаться этот раздел")
         <br /><br />
 
         @Html.HiddenFor(m => m.Id)
-        <input type="submit" value="Сохранить изменения" />
+
+        <div class="fit-left">
+            <input type="submit" value="Сохранить изменения" />
+            <input type="button" value="Отмена" onclick="window.location.href = '/FAQ/Index';" />
+        </div><div class="fit-rigth">
+        @if(Model.Id != 0)
+        {
+            <input type="button" value="Удалить раздел" onclick="deletecategory(@Model.Id);" />
+        }
+        </div>
+        @if (TempData["Error"] != null)
+        {
+            <span class="field-validation-error">@TempData["Error"]</span>
+        }
+
     </form>
 </div>
 

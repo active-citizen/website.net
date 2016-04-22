@@ -30,13 +30,22 @@ namespace ActiveCitizenWeb.StaticContentCMS.Controllers
         {
             QuestionsVM vm = new QuestionsVM();
             vm.Questions = _staticContentProvider.GetAllItems();
-            return View(vm);
-        }
 
-        public ActionResult EditCategories()
-        {
-            CategoriesVM vm = new CategoriesVM();
-            vm.Categories = _staticContentProvider.GetAllCategories();
+            vm.Categories = _staticContentProvider.GetAllCategories()
+                .Where(c => (c.Items == null || c.Items.Count == 0)).ToList();
+
+            //sort by category and then by order
+            vm.Questions.Sort(delegate(FaqListItem a, FaqListItem b) {
+                if (a.Category.Order > b.Category.Order) return 1;
+                else if (a.Category.Order < b.Category.Order) return -1;
+                else
+                {
+                    if (a.Order > b.Order) return 1;
+                    else if (a.Order < b.Order) return -1;
+                    else return 0;
+                }
+            });
+
             return View(vm);
         }
 
@@ -64,7 +73,9 @@ namespace ActiveCitizenWeb.StaticContentCMS.Controllers
             vm.Category = new FaqListCategory();
 
             //by defaul add to the first category
-            vm.Category.Id = _staticContentProvider.GetAllCategories().First().Id;
+            FaqListCategory category = _staticContentProvider.GetAllCategories().First();
+            vm.Category.Id = category.Id;
+            vm.Category.Name = category.Name;
 
             //and add to the end by default
             vm.Order = _staticContentProvider.GetCategory(vm.Category.Id).Items.Max(c => c.Order) + 10;
@@ -97,24 +108,57 @@ namespace ActiveCitizenWeb.StaticContentCMS.Controllers
         [HttpPost]
         public ActionResult SaveQuestion(QuestionVM vm)
         {
-            FaqListItem item = _mapper.Map<FaqListItem>(vm);
-            item.Category = _staticContentProvider.GetCategory(item.Category.Id);
+            if (ModelState.IsValid)
+            {
+                FaqListItem item = _mapper.Map<FaqListItem>(vm);
+                item.Category = _staticContentProvider.GetCategory(item.Category.Id);
 
-            if (item.Id > 0) _staticContentProvider.PutFaqItem(item);
-            else _staticContentProvider.PostFaqItem(item);
+                if (item.Id > 0) _staticContentProvider.PutFaqItem(item);
+                else _staticContentProvider.PostFaqItem(item);
 
-            vm.CategoryNames = GetCategoryNames();
-
-            return View("EditQuestion", vm);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("EditQuestion", vm);
+            }
         }
 
         [HttpPost]
         public ActionResult SaveCategory(FaqListCategory vm)
         {
-            if (vm.Id > 0) _staticContentProvider.PutFaqItem(vm);
-            else _staticContentProvider.PostFaqItem(vm);
+            if(ModelState.IsValid)
+            { 
+                if (vm.Id > 0) _staticContentProvider.PutFaqItem(vm);
+                else _staticContentProvider.PostFaqItem(vm);
 
-            return View("Editcategory", vm);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("EditCategory", vm);
+            }
+        }
+
+        public ActionResult DeleteCategory(int id)
+        {
+            if (_staticContentProvider.IsFaqListCategoryDeletable(id))
+            {
+                _staticContentProvider.DeleteFaqCategory(id);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                //TODO: add error presentation at separate box
+                TempData["Error"] = "Нельзя удалить раздел, так как в нем содержаться вопросы. Вначале удалите/перенесите все вопросы из раздела и потом удаляйте раздел.";
+                return RedirectToAction("EditCategory/" + id.ToString());
+            }
+        }
+
+        public ActionResult DeleteQuestion(int id)
+        {
+            _staticContentProvider.DeleteFaqListItem(id);
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

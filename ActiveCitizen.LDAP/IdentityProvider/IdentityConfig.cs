@@ -69,12 +69,12 @@ namespace ActiveCitizen.LDAP.IdentityProvider
                         return true;
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     return false;
                 }
             }
-            catch (Exception ex) { throw; }
+            catch (Exception ex) { throw ex; }
         }
 
         protected override Task<bool> VerifyPasswordAsync(IUserPasswordStore<ApplicationUser, string> store, ApplicationUser user, string password)

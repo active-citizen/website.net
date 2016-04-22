@@ -1,7 +1,6 @@
 ﻿@model ActiveCitizenWeb.StaticContentCMS.ViewModel.FAQ.QuestionsVM
 @using ActiveCitizen.Model.StaticContent.FAQ;
 
-<script src="~/Scripts/jquery-1.10.2.js"></script>
 <script src="~/Scripts/faq.js"></script>
 
 @{
@@ -12,15 +11,11 @@
     <div class="fit-left">
         <h2>Редактировать вопросы</h2>
     </div><div class="fit-rigth">
-        <h3><a href="~/FAQ/EditCategories">Редактировать разделы</a></h3>
+        <input type="button" onclick="newquestion()" value="Создать новый вопрос" />
+        <input type="button" onclick="newcategory()" value="Создать новый раздел" />
     </div>
 </div>
 
-<div>
-    <input type="button" onclick="newquestion()" value="Новый вопрос" />
-    <input type="button" onclick="deletequestion()" value="Удалить выбранный вопрос" />
-    <input type="button" onclick="editquestion()" value="Редактировать выбранный вопрос" />
-</div>
 <div class="questions">
     <table class="questions" border="1" id="tblQuestions">
         <tr class="header">
@@ -31,12 +26,23 @@
         </tr>
         @foreach (FaqListItem item in Model.Questions)
         {
-            <tr id=@item.Id.ToString().Insert(0,"tblrow")>
-                <td>@item.Category.Name.Substring(0, Math.Min(32, @item.Category.Name.Length)) ...</td>
-                <td>@item.Question.Substring(0, Math.Min(256, @item.Question.Length)) ...</td>
-                <td>@item.Answer.Substring(0, Math.Min(256, @item.Answer.Length)) ...</td>
+            <tr>
+                <td><a href="/FAQ/EditCategory/@item.Category.Id">@Model.Cut(item.Category.Name, 128)</a></td>
+                <td><a href="/FAQ/EditQuestion/@item.Id">@Model.Cut(item.Question, 256)</a></td>
+                <td>@Html.Raw(Model.Cut(@item.Answer, 512))</td>
                 <td align="center">@item.Order</td>
-                <td><a onclick="selectquestion(@item.Id); return false;" href="#">Выбрать</a></td>
+            </tr>
+        }
+        @foreach (FaqListCategory item in Model.Categories)
+        {
+            <tr>
+                <td><a href="/FAQ/EditCategory/@item.Id">@Model.Cut(item.Name, 128)</a></td>
+                @if(item == Model.Categories.First())
+                { 
+                    <th rowspan="@Model.Categories.Count" colspan="3">
+                        <i>Раздел(ы) в которых нет вопросов (можно удалять)</i>
+                    </th>
+                }
             </tr>
         }
     </table>

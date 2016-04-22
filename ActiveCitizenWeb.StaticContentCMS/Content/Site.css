@@ -55,3 +55,12 @@ textarea.question-area {
 div.validation-error {
     color: red;
 }
+
+.field-validation-valid {
+    visibility: hidden;
+}
+
+.field-validation-error {
+   color: red;
+}
+
