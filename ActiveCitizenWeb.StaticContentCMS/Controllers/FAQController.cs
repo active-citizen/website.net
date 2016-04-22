@@ -16,10 +16,10 @@ namespace ActiveCitizenWeb.StaticContentCMS.Controllers
 {
     public class FAQController : Controller
     {
-        private readonly StaticContentProvider _staticContentProvider;
+        private readonly IStaticContentProvider _staticContentProvider;
         private readonly IMapper _mapper;
 
-        public FAQController(StaticContentProvider staticContentProvider, IMapper mapper)
+        public FAQController(IStaticContentProvider staticContentProvider, IMapper mapper)
         {
             _staticContentProvider = staticContentProvider;
             _mapper = mapper;

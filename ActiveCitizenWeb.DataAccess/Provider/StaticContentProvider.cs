@@ -9,11 +9,11 @@ using System.Data.Entity.Infrastructure;
 
 namespace ActiveCitizenWeb.DataAccess.Provider
 {
-    public class StaticContentProvider : IDisposable
+    public class StaticContentProvider : IStaticContentProvider
     {
-        private readonly FaqContext faqDbContext;
+        private readonly IFaqContext faqDbContext;
 
-        public StaticContentProvider(FaqContext faqDbContext)
+        public StaticContentProvider(IFaqContext faqDbContext)
         {
             this.faqDbContext = faqDbContext;
         }

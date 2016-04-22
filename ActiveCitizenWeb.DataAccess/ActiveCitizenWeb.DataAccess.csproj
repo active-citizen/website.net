@@ -52,12 +52,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\FaqContext.cs" />
+    <Compile Include="Context\IFaqContext.cs" />
     <Compile Include="Migrations\201604191658142_InitialCreate.cs" />
     <Compile Include="Migrations\201604191658142_InitialCreate.Designer.cs">
       <DependentUpon>201604191658142_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Provider\IStaticContentProvider.cs" />
     <Compile Include="Provider\StaticContentProvider.cs" />
   </ItemGroup>
   <ItemGroup>

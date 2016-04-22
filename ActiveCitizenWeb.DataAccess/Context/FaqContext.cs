@@ -5,7 +5,7 @@ namespace ActiveCitizenWeb.DataAccess.Context
     using System.Linq;
     using ActiveCitizen.Model.StaticContent.FAQ;
 
-    public class FaqContext : DbContext
+    public class FaqContext : DbContext, IFaqContext
     {
         public FaqContext()
             : base("name=FaqContext")
@@ -13,8 +13,8 @@ namespace ActiveCitizenWeb.DataAccess.Context
             Database.SetInitializer<FaqContext>(null);
         }
 
-        public DbSet<FaqListItem> FaqListItem { get; set; }
-        public DbSet<FaqListCategory> FaqListCategory { get; set; }
+        public IDbSet<FaqListItem> FaqListItem { get; set; }
+        public IDbSet<FaqListCategory> FaqListCategory { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

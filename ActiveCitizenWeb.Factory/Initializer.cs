@@ -12,8 +12,8 @@ namespace ActiveCitizenWeb.Factory
     {
         public static void Initialize(ContainerBuilder builder)
         {
-            builder.RegisterType<StaticContentProvider>().AsSelf();
-            builder.RegisterType<FaqContext>().AsSelf();
+            builder.RegisterType<StaticContentProvider>().As<IStaticContentProvider>();
+            builder.RegisterType<FaqContext>().As<IFaqContext>();
         }
     }
 }
