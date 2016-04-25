@@ -29,6 +29,7 @@
             <input type="submit" value="Сохранить изменения" />
             <input type="button" value="Отмена" onclick="window.location.href = '/FAQ/Index';" />
         </div><div class="fit-rigth">
+
         @if(Model.Id != 0)
         {
             <input type="button" value="Удалить раздел" onclick="deletecategory(@Model.Id);" />
