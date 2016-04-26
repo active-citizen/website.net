@@ -51,8 +51,7 @@ namespace ActiveCitizenWeb.StaticContentCMS.Controllers
 
         public ActionResult EditCategory(int id)
         {
-            FaqListCategory vm = new FaqListCategory();
-            vm = _staticContentProvider.GetCategory(id);
+            FaqListCategory vm = _staticContentProvider.GetCategory(id);
             return View(vm);
         }
 

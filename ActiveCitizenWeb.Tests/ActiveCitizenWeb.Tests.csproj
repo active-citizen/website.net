@@ -94,6 +94,7 @@
     <Compile Include="ContentProviders\FaqDbContextMock.cs" />
     <Compile Include="ContentProviders\StaticContentProviderTests.cs" />
     <Compile Include="Controllers\FaqControllerTests.cs" />
+    <Compile Include="Controllers\MapperMock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>

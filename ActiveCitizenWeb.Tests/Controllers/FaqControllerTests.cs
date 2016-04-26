@@ -2,6 +2,7 @@
 using ActiveCitizenWeb.DataAccess.Provider;
 using ActiveCitizenWeb.StaticContentCMS.Controllers;
 using ActiveCitizenWeb.StaticContentCMS.ViewModel.FAQ;
+using AutoMapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Collections.Generic;
@@ -64,6 +65,104 @@ namespace ActiveCitizenWeb.Tests.Controllers
                 model.Categories.IndexOf(category4) >= 0,
                 "Categories list must contain only categories with empty Items list"
             );
+        }
+
+        [TestMethod]
+        public void EditCategory()
+        {
+            var cat = new FaqListCategory();
+
+            var provider = new Mock<IStaticContentProvider>();
+            provider.Setup(p => p.GetCategory(It.IsAny<int>())).Returns(cat);
+
+
+            faqController = new FAQController(provider.Object, null);
+            var action = faqController.EditCategory(0);
+
+            Assert.IsInstanceOfType(action, typeof(ViewResult));
+            var view = (ViewResult)action;
+
+            Assert.IsInstanceOfType(view.Model, typeof(FaqListCategory));
+            var model = (FaqListCategory)view.Model;
+            Assert.AreSame(cat, model);
+        }
+
+        [TestMethod]
+        public void EditQuestion()
+        {
+            FaqListItem item = new FaqListItem();
+            QuestionVM vm = new QuestionVM();
+            List<FaqListCategory> list = new List<FaqListCategory>() { new FaqListCategory() };
+
+            var cont = new Mock<IStaticContentProvider>();
+            cont.Setup(p => p.GetFaqListItem(It.IsAny<int>())).Returns(item);
+            cont.Setup(p => p.GetAllCategories()).Returns(list);
+
+            var map = new Mock<IMapper>();
+            map.Setup(m => m.Map<QuestionVM>(It.IsAny<FaqListItem>())).Returns(vm);
+
+            faqController = new FAQController(cont.Object, map.Object);
+            var action = faqController.EditQuestion(0);
+
+            map.Verify(m => m.Map<QuestionVM>(item), Times.AtLeastOnce, "Does not mapped model to view model");
+            Assert.IsInstanceOfType(action, typeof(ViewResult));
+            var model = ((ViewResult)action).Model;
+
+            Assert.AreSame(vm, model);
+        }
+
+        [TestMethod]
+        public void NewQuestion()
+        {
+            List<FaqListCategory> list = new List<FaqListCategory>
+            {
+                new FaqListCategory
+                {
+                    Items = new List<FaqListItem>
+                    {
+                        new FaqListItem() { Order = 10 }
+                    }
+                }
+            };
+
+            var cont = new Mock<IStaticContentProvider>();
+            cont.Setup(p => p.GetAllCategories()).Returns(list);
+            cont.Setup(p => p.GetCategory(It.IsAny<int>())).Returns(list[0]);
+
+            faqController = new FAQController(cont.Object, null);
+            var action = faqController.NewQuestion();
+            Assert.IsInstanceOfType(action, typeof(ViewResult));
+
+            var view = (ViewResult)action;
+            Assert.AreEqual("EditQuestion", view.ViewName);
+            Assert.IsInstanceOfType(view.Model, typeof(QuestionVM));
+
+            var model = (QuestionVM)view.Model;
+            Assert.AreEqual(20, model.Order);
+        }
+
+        [TestMethod]
+        public void NewCategory()
+        {
+            var provider = new Mock<IStaticContentProvider>();
+            provider.Setup(p => p.GetAllCategories()).Returns(new List<FaqListCategory>
+            {
+                new FaqListCategory() { Order = 10 }
+            });
+
+            faqController = new FAQController(provider.Object, null);
+            var view = faqController.NewCategory() as ViewResult;
+
+            Assert.AreEqual(11, ((FaqListCategory)view.Model).Order);
+        }
+
+        [TestMethod]
+        public void SaveQuestion()
+        {
+            var provider = new Mock<IStaticContentProvider>();
+            var mapper = new MapperMock();
+
+            faqController = new FAQController(provider.Object, mapper);
         }
     }
 }

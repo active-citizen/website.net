@@ -33,13 +33,13 @@ namespace ActiveCitizenWeb.DataAccess.Provider
             return faqDbContext.FaqListItem.Count(e => e.Id == id) > 0;
         }
 
+        public static string CannotDelete = @"Нельзя удалить раздел, так как в разделе есть вопросы, вначале удалите все вопросы из раздела, а потом удаляйте раздел.";
         public bool IsFaqListCategoryDeletable(int id)
         {
             bool any = faqDbContext.FaqListItem.Any(e => e.Category.Id == id);
 
             return !any;
         }
-        public static string CannotDelete = @"Нельзя удалить раздел, так как в разделе есть вопросы, вначале удалите все вопросы из раздела, а потом удаляйте раздел.";
 
         public void PutFaqItem<T>(T item) where T : class
         {

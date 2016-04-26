@@ -151,12 +151,16 @@ namespace ActiveCitizenWeb.Tests.ContentProviders
 
         public DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class
         {
-            throw new NotImplementedException();
+            //TODO
+            //switch (entity.GetType().ToString())
+            //    case typeof(FaqListItem).ToString():
+            //    return items.First(c => c.Id == ((FaqListItem)entity).Id);
+            return null;
         }
 
         public int SaveChanges()
         {
-            throw new NotImplementedException();
+            return 0;
         }
     }
 }
