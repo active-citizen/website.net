@@ -1,7 +1,6 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace ActiveCitizen.Model.StaticContent.FAQ
+namespace ActiveCitizen.Model.StaticContent.Faq
 {
     public class FaqListItem
     {
@@ -16,6 +15,9 @@ namespace ActiveCitizen.Model.StaticContent.FAQ
 
         [Required]
         public int Order { get; set; }
+
+        [Required]
+        public int CategoryId { get; set; }
 
         [Required]
         public virtual FaqListCategory Category { get; set; }

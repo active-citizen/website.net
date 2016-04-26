@@ -5,8 +5,8 @@ using System.Web;
 using Autofac;
 using ActiveCitizenWeb.StaticContentCMS.Controllers;
 using AutoMapper;
-using ActiveCitizen.Model.StaticContent.FAQ;
-using ActiveCitizenWeb.StaticContentCMS.ViewModel.FAQ;
+using ActiveCitizen.Model.StaticContent.Faq;
+using ActiveCitizenWeb.StaticContentCMS.ViewModel.Faq;
 
 namespace ActiveCitizenWeb.StaticContentCMS.Services
 {
@@ -14,7 +14,7 @@ namespace ActiveCitizenWeb.StaticContentCMS.Services
     {
         public static void Initialize(ContainerBuilder builder)
         {
-            builder.RegisterType<FAQController>().AsSelf();
+            builder.RegisterType<FaqListController>().AsSelf();
             builder.RegisterInstance(InitializeMapping()).SingleInstance();
         }
 
@@ -22,8 +22,8 @@ namespace ActiveCitizenWeb.StaticContentCMS.Services
         {
             var config = new MapperConfiguration(cfg =>
                 {
-                    cfg.CreateMap<FaqListItem, QuestionVM>();
-                    cfg.CreateMap<QuestionVM, FaqListItem>();
+                    cfg.CreateMap<FaqListItem, QuestionVM>();//.ForMember(vm => vm.CategoryId, li => li.MapFrom(vm => vm.Category.Id));
+                    cfg.CreateMap<QuestionVM, FaqListItem>();//.ForMember(li => li.Category, conf => conf.ResolveUsing(vm => new FaqListCategory { Id = vm.CategoryId }));
                 });
             return config.CreateMapper();
         }

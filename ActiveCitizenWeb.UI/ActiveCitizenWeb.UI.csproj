@@ -327,6 +327,10 @@
       <Project>{912ad17e-722c-40a3-a04a-5cb59e950e73}</Project>
       <Name>ActiveCitizenWeb.Factory</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ActiveCitizenWeb.Infrastructure\ActiveCitizenWeb.Infrastructure.csproj">
+      <Project>{2E2D0B09-05E5-4249-821F-2E3E278EFD13}</Project>
+      <Name>ActiveCitizenWeb.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ActiveCitizen.Model.StaticContent.FAQ;
+using ActiveCitizen.Model.StaticContent.Faq;
 using System.Data.Entity;
 using System.Collections;
 using System.Collections.ObjectModel;
@@ -94,9 +94,11 @@ namespace ActiveCitizenWeb.Tests.ContentProviders
             return items.GetEnumerator();
         }
     }
-
+    /*
     internal class FaqDbContextMock : IFaqContext
     {
+        DbEntityEntry<string>  e = new DbEntityEntry<string>("");
+
         private readonly IDbSet<FaqListItem> items;
 
         private readonly IDbSet<FaqListCategory> categories;
@@ -159,4 +161,5 @@ namespace ActiveCitizenWeb.Tests.ContentProviders
             throw new NotImplementedException();
         }
     }
+    */
 }

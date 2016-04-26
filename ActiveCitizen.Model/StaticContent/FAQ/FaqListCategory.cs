@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace ActiveCitizen.Model.StaticContent.FAQ
+namespace ActiveCitizen.Model.StaticContent.Faq
 {
     public class FaqListCategory
     {

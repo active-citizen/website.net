@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using ActiveCitizen.Model.StaticContent.FAQ;
+﻿using System.Collections.Generic;
+using ActiveCitizen.Model.StaticContent.Faq;
 using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
 
-namespace ActiveCitizenWeb.StaticContentCMS.ViewModel.FAQ
+namespace ActiveCitizenWeb.StaticContentCMS.ViewModel.Faq
 {
     public class QuestionVM : BaseViewModel
     {
@@ -24,8 +21,8 @@ namespace ActiveCitizenWeb.StaticContentCMS.ViewModel.FAQ
         public int Order { get; set; }
 
         [Required]
-        public FaqListCategory Category { get; set; }
+        public int CategoryId { get; set; }
 
-        public List<SelectListItem> CategoryNames { get; set; }
+        public IEnumerable<SelectListItem> CategoryNames { get; set; }
     }
 }

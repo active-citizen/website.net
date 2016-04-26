@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using ActiveCitizen.Model.StaticContent.FAQ;
+﻿using System.Collections.Generic;
+using ActiveCitizen.Model.StaticContent.Faq;
 
-namespace ActiveCitizenWeb.StaticContentCMS.ViewModel.FAQ
+namespace ActiveCitizenWeb.StaticContentCMS.ViewModel.Faq
 {
     public class QuestionsVM : BaseViewModel
     {
         public List<FaqListItem> Questions { get; set; }
-        public List<FaqListCategory> Categories { get; set; }
+        public List<FaqListCategory> EmptyCategories { get; set; }
+        public bool CanAddQuestions { get; set; }
     }
 }

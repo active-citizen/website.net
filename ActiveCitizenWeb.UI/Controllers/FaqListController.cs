@@ -1,9 +1,5 @@
-﻿using ActiveCitizenWeb.DataAccess;
-using ActiveCitizenWeb.DataAccess.Provider;
-using System;
-using System.Collections.Generic;
+﻿using ActiveCitizenWeb.Infrastructure.Provider;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ActiveCitizenWeb.UI.Controllers
@@ -20,7 +16,7 @@ namespace ActiveCitizenWeb.UI.Controllers
         // GET: FaqList
         public string Index()
         {
-            return string.Join(",", staticContentProvider.GetAllItems().Select(listItem => listItem.Question));
+            return string.Join(",", staticContentProvider.GetAllFaqListItems().Select(listItem => listItem.Question));
         }
     }
 }

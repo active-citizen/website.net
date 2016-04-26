@@ -1,0 +1,56 @@
+﻿@using ActiveCitizen.Model.StaticContent.Faq
+@using ActiveCitizenWeb.StaticContentCMS.Utils
+
+@model ActiveCitizenWeb.StaticContentCMS.ViewModel.Faq.QuestionsVM
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div>
+    <div class="fit-left">
+        <h2>Редактировать вопросы</h2>
+    </div><div class="fit-rigth">
+        <input type="button" @{if (!Model.CanAddQuestions) { <text>disabled</text> } } onclick="window.location.href = '@Url.Action("NewQuestion", "FaqList")'" value="Создать новый вопрос" />
+        <input type="button" onclick="window.location.href = '@Url.Action("NewCategory", "FaqList")'" value="Создать новый раздел" />
+    </div>
+</div>
+
+<div class="questions">
+    <table class="questions" border="1" id="tblQuestions">
+        <tr class="header">
+            <td width="15%">Раздел</td>
+         <td width="20%">Текст вопроса</td>
+            <td>Текст ответа</td>
+            <td width="5%" align="center">Порядок в разделе</td>
+        </tr>
+        @foreach (FaqListItem item in Model.Questions)
+        {
+            <tr>
+                <td>@Html.ActionLink(item.Category.Name.Cut(128), "EditCategory", new { id = item.Category.Id })</td>
+                <td>@Html.ActionLink(item.Question.Cut(256), "EditQuestion", new { id = item.Id })</td>
+                <td>@Html.Raw(item.Answer.Cut(512))</td>
+                <td align="center">@item.Order</td>
+            </tr>
+        }
+        @foreach (FaqListCategory item in Model.EmptyCategories)
+        {
+            <tr>
+                <td>@Html.ActionLink(item.Name.Cut(128), "EditCategory", new { id = item.Id })</td>
+                @if(item == Model.EmptyCategories.First())
+                {
+                    <th rowspan="@Model.EmptyCategories.Count" colspan="3">
+                        <i>Раздел(ы) в которых нет вопросов (можно удалять)</i>
+                    </th>
+                }
+            </tr>
+        }
+    </table>
+</div>
+
+@section Scripts { 
+<script src="~/Scripts/faq.js"></script>
+<script type="text/javascript">
+    window.ag.faq.initialize();
+</script>
+}

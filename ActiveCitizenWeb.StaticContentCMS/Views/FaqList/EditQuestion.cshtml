@@ -1,0 +1,60 @@
+﻿@model ActiveCitizenWeb.StaticContentCMS.ViewModel.Faq.QuestionVM
+
+@{
+    ViewBag.Title = "EditQuestion";
+}
+
+<div>
+    <div class="fit-left">
+        <h2>Редактировать вопрос</h2>
+    </div><div class="fit-rigth">
+        <h3>@Html.ActionLink("Обратно к списку вопросов", "Index", "FaqList")</h3>
+    </div>
+</div>
+
+<div class="fill">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <b>Вопрос:</b><br />
+        @Html.TextAreaFor(m => m.Question, new { @class = "question-area"})
+        @Html.ValidationMessageFor(m => m.Question, "Вопрос не может быть пустым")
+        <br /><br />
+        <b>Ответ:</b><br />
+        @Html.TextAreaFor(m => m.Answer, new { @class = "question-area", @rows = "20", @id = "answer", data_richtexteditor = "" })
+        @Html.ValidationMessageFor(m => m.Answer, "Ответ не может быть пустым")
+        <br /><br />
+        <b>Выберите раздел, в котором будет отображаться вопрос:</b>
+        @Html.DropDownListFor(m => m.CategoryId, Model.CategoryNames)
+        <br /><br />
+        <b>Выберите очередность в которой будет отображаться вопрос в разделе:</b>
+        @Html.TextBoxFor(m => m.Order)
+        @Html.ValidationMessageFor(m => m.Order, "Укажите очередность вопроса в разделе")
+        <br /><br />
+
+        @Html.HiddenFor(m => m.Id)
+        <div class="fit-left">
+            <input type="submit" value="Сохранить изменения" />
+            <input type="button" value="Отмена (вернуться к списку)" onclick="window.location.href = '@Url.Action("Index", "FaqList")';" />
+        </div>
+    }
+    @if (Model.Id != 0)
+    {
+        using (Html.BeginForm("DeleteQuestion", "FaqList", FormMethod.Post))
+        {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.Id)
+        <div class="fit-rigth">
+            <input type="submit" value="Удалить вопрос" data-confirmation="Вы действительно хотите удалить вопрос?" />
+        </div>
+        }
+    }
+</div>
+
+@section Scripts {
+<script src="~/Scripts/faq.js"></script>
+<script src="~/Scripts/tinymce/tinymce.js"></script>
+<script type="text/javascript">
+    window.ag.faq.initialize();
+</script>
+}

@@ -112,6 +112,10 @@
       <Project>{94DAC6B3-D38A-466E-A13D-5D4C62374C0A}</Project>
       <Name>ActiveCitizenWeb.DataAccess</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ActiveCitizenWeb.Infrastructure\ActiveCitizenWeb.Infrastructure.csproj">
+      <Project>{2E2D0B09-05E5-4249-821F-2E3E278EFD13}</Project>
+      <Name>ActiveCitizenWeb.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ActiveCitizenWeb.StaticContentCMS\ActiveCitizenWeb.StaticContentCMS.csproj">
       <Project>{7E704DB8-B906-49D5-BA54-4FD26FC49C71}</Project>
       <Name>ActiveCitizenWeb.StaticContentCMS</Name>

@@ -1,6 +1,5 @@
-﻿using ActiveCitizen.Model.StaticContent.FAQ;
+﻿using ActiveCitizen.Model.StaticContent.Faq;
 using ActiveCitizenWeb.DataAccess.Context;
-using ActiveCitizenWeb.DataAccess.Provider;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
@@ -15,6 +14,7 @@ namespace ActiveCitizenWeb.Tests.ContentProviders
     [TestClass]
     public class StaticContentProviderTests
     {
+        /*
         private IStaticContentProvider provider;
         private Mock<IFaqContext> dbContextMock;
 
@@ -57,5 +57,6 @@ namespace ActiveCitizenWeb.Tests.ContentProviders
 
             Assert.AreEqual(111, item.Id);
         }
+        */
     }
 }

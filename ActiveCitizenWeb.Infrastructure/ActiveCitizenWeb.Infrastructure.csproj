@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{912AD17E-722C-40A3-A04A-5CB59E950E73}</ProjectGuid>
+    <ProjectGuid>{2E2D0B09-05E5-4249-821F-2E3E278EFD13}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ActiveCitizenWeb.Factory</RootNamespace>
-    <AssemblyName>ActiveCitizenWeb.Factory</AssemblyName>
+    <RootNamespace>ActiveCitizenWeb.Infrastructure</RootNamespace>
+    <AssemblyName>ActiveCitizenWeb.Infrastructure</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,10 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,21 +41,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Initializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Provider\IStaticContentProvider.cs" />
+    <Compile Include="Provider\StaticContentProvider.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ActiveCitizen.Model\ActiveCitizen.Model.csproj">
+      <Project>{43c56219-1224-45dd-8cc1-2bba0b7e85d7}</Project>
+      <Name>ActiveCitizen.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ActiveCitizenWeb.DataAccess\ActiveCitizenWeb.DataAccess.csproj">
       <Project>{94dac6b3-d38a-466e-a13d-5d4c62374c0a}</Project>
       <Name>ActiveCitizenWeb.DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ActiveCitizenWeb.Infrastructure\ActiveCitizenWeb.Infrastructure.csproj">
-      <Project>{2E2D0B09-05E5-4249-821F-2E3E278EFD13}</Project>
-      <Name>ActiveCitizenWeb.Infrastructure</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

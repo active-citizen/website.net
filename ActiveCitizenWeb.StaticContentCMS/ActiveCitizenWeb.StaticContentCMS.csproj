@@ -230,7 +230,7 @@
     <Compile Include="App_Start\Startup.Config.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\FAQController.cs" />
+    <Compile Include="Controllers\FaqListController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -241,9 +241,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CMSInitializer.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utils\StringExtensions.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
-    <Compile Include="ViewModel\FAQ\QuestionsVM.cs" />
-    <Compile Include="ViewModel\FAQ\QuestionVM.cs" />
+    <Compile Include="ViewModel\Faq\QuestionsVM.cs" />
+    <Compile Include="ViewModel\Faq\QuestionVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -430,7 +431,9 @@
     <Content Include="Scripts\tinymce\tinymce.js" />
     <Content Include="Scripts\tinymce\tinymce.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -464,9 +467,9 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\FAQ\Index.cshtml" />
-    <Content Include="Views\FAQ\EditQuestion.cshtml" />
-    <Content Include="Views\FAQ\EditCategory.cshtml" />
+    <Content Include="Views\FaqList\Index.cshtml" />
+    <Content Include="Views\FaqList\EditQuestion.cshtml" />
+    <Content Include="Views\FaqList\EditCategory.cshtml" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.woff" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.ttf" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.json" />
@@ -505,6 +508,10 @@
     <ProjectReference Include="..\ActiveCitizenWeb.Factory\ActiveCitizenWeb.Factory.csproj">
       <Project>{912ad17e-722c-40a3-a04a-5cb59e950e73}</Project>
       <Name>ActiveCitizenWeb.Factory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ActiveCitizenWeb.Infrastructure\ActiveCitizenWeb.Infrastructure.csproj">
+      <Project>{2E2D0B09-05E5-4249-821F-2E3E278EFD13}</Project>
+      <Name>ActiveCitizenWeb.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

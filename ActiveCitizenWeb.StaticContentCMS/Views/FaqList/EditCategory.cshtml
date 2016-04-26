@@ -1,0 +1,64 @@
+﻿@using ActiveCitizenWeb.StaticContentCMS.Controllers
+
+@model ActiveCitizen.Model.StaticContent.Faq.FaqListCategory
+
+@{
+    ViewBag.Title = "EditCategory";
+}
+
+<div>
+    <div class="fit-left">
+        <h2>Редактировать раздел</h2>
+    </div><div class="fit-rigth">
+        <h3>@Html.ActionLink("Обратно к списку вопросов", "Index", "FaqList")</h3>
+    </div>
+</div>
+
+<div class="fill">
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "fill" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.Id)
+
+        <b>Название раздела:</b><br />
+        @Html.TextAreaFor(m => m.Name, new { @class = "question-area" })
+        @Html.ValidationMessageFor(m => m.Name, "Название раздела не может быть пустым")
+        <br /><br />
+
+        <b>Выберите очередность в которой будет отображаться раздел:</b>
+        @Html.TextBoxFor(m => m.Order)
+        @Html.ValidationMessageFor(m => m.Order, "Укажите очередность в которой будет отображаться этот раздел")
+        <br /><br />
+
+
+        <div class="fit-left">
+            <input type="submit" value="Сохранить изменения" />
+            <input type="button" value="Отмена" onclick="window.location.href = '@Url.Action("Index","FaqList")';" />
+        </div>
+    }
+    @if(Model.Id != 0)
+    {
+        using (Html.BeginForm("DeleteCategory", "FaqList", FormMethod.Post, new { @class = "fill" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.Id)
+            <div class="fit-rigth">
+                <input type="submit"  @{if (Model.Items.Any()) { <text>disabled</text> } } value="Удалить раздел" data-confirmation="Вы действительно хотите удалить раздел?" />
+            </div>
+            if((string)TempData["Error"] == FaqListController.ErrorCodes.CannotDeleteCategoryThatContainsQuestions)
+                            {
+                <div class="alert alert-warning alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+                    <strong>Нельзя удалить раздел, так как в нем содержаться вопросы. Вначале удалите/перенесите все вопросы из раздела и потом удаляйте раздел.</strong>
+                </div>
+            }
+        }
+    }
+</div>
+
+@section Scripts{
+<script src="~/Scripts/faq.js"></script>
+<script type="text/javascript">
+    window.ag.faq.initialize();
+</script>
+}
