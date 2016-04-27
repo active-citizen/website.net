@@ -41,10 +41,19 @@ window.ag.faq = (function () {
             var $el = $(this);
             var message = $el.attr(attr);
 
+            $el.data('onclick-saved-action', this.onclick);
+            $el.attr('onclick', null);
+
             $el.click(function (event) {
                 var proceed = _confirmAction(message);
                 if (!proceed) {
+                    event.stopImmediatePropagation();
                     event.preventDefault();
+                    return false;
+                } else {
+                    var action = $el.data('onclick-saved-action');
+                    $el.attr('onclick', action);
+                    return true;
                 }
             });
         });

@@ -10,7 +10,7 @@
 <div>
     <div class="fit-left">
         <h2>Редактировать вопросы</h2>
-    </div><div class="fit-rigth">
+    </div><div class="fit-right">
         <input type="button" @{if (!Model.CanAddQuestions) { <text>disabled</text> } } onclick="window.location.href = '@Url.Action("NewQuestion", "FaqList")'" value="Создать новый вопрос" />
         <input type="button" onclick="window.location.href = '@Url.Action("NewCategory", "FaqList")'" value="Создать новый раздел" />
     </div>

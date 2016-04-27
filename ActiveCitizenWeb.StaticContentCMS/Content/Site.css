@@ -40,9 +40,10 @@ div.fit-left {
     display: inline-block;
     width: 50%;
     text-align: left;
+    float: left;
 }
 
-div.fit-rigth {
+div.fit-right {
     display: inline-block;
     width: 50%;
     text-align: right;

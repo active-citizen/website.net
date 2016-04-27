@@ -9,7 +9,7 @@
 <div>
     <div class="fit-left">
         <h2>Редактировать раздел</h2>
-    </div><div class="fit-rigth">
+    </div><div class="fit-right">
         <h3>@Html.ActionLink("Обратно к списку вопросов", "Index", "FaqList")</h3>
     </div>
 </div>
@@ -33,25 +33,30 @@
 
         <div class="fit-left">
             <input type="submit" value="Сохранить изменения" />
-            <input type="button" value="Отмена" onclick="window.location.href = '@Url.Action("Index","FaqList")';" />
+            <input type="button" value="Отмена" onclick="window.location.href = '@Url.Action("Index", "FaqList")';" />
         </div>
-    }
-    @if(Model.Id != 0)
-    {
-        using (Html.BeginForm("DeleteCategory", "FaqList", FormMethod.Post, new { @class = "fill" }))
+        if (Model.Id != 0)
         {
-            @Html.AntiForgeryToken()
-            @Html.HiddenFor(m => m.Id)
-            <div class="fit-rigth">
-                <input type="submit"  @{if (Model.Items.Any()) { <text>disabled</text> } } value="Удалить раздел" data-confirmation="Вы действительно хотите удалить раздел?" />
+            <div class="fit-right">
+                <input type="button" @{if (Model.Items.Any()) { <text>disabled</text> } }
+                       onclick="jQuery('#category-delete-form').submit();"
+                       value="Удалить раздел" data-confirmation="Вы действительно хотите удалить раздел?" />
             </div>
-            if((string)TempData["Error"] == FaqListController.ErrorCodes.CannotDeleteCategoryThatContainsQuestions)
-                            {
+            if ((string)TempData["Error"] == FaqListController.ErrorCodes.CannotDeleteCategoryThatContainsQuestions)
+            {
                 <div class="alert alert-warning alert-dismissible" role="alert">
                     <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
                     <strong>Нельзя удалить раздел, так как в нем содержаться вопросы. Вначале удалите/перенесите все вопросы из раздела и потом удаляйте раздел.</strong>
                 </div>
             }
+        }
+    }
+    @if(Model.Id != 0 && !Model.Items.Any())
+    {
+        using (Html.BeginForm("DeleteCategory", "FaqList", FormMethod.Post, new { id = "category-delete-form", @class = "fill" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.Id)
         }
     }
 </div>

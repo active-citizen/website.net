@@ -7,7 +7,7 @@
 <div>
     <div class="fit-left">
         <h2>Редактировать вопрос</h2>
-    </div><div class="fit-rigth">
+    </div><div class="fit-right">
         <h3>@Html.ActionLink("Обратно к списку вопросов", "Index", "FaqList")</h3>
     </div>
 </div>
@@ -37,16 +37,21 @@
             <input type="submit" value="Сохранить изменения" />
             <input type="button" value="Отмена (вернуться к списку)" onclick="window.location.href = '@Url.Action("Index", "FaqList")';" />
         </div>
+        if (Model.Id != 0)
+        {
+        <div class="fit-right">
+            <input type="button" value="Удалить вопрос"
+                   onclick="jQuery('#question-delete-form').submit();"
+                   data-confirmation="Вы действительно хотите удалить вопрос?" />
+        </div>
+        }
     }
     @if (Model.Id != 0)
     {
-        using (Html.BeginForm("DeleteQuestion", "FaqList", FormMethod.Post))
+        using (Html.BeginForm("DeleteQuestion", "FaqList", FormMethod.Post, new { id = "question-delete-form" }))
         {
         @Html.AntiForgeryToken()
         @Html.HiddenFor(m => m.Id)
-        <div class="fit-rigth">
-            <input type="submit" value="Удалить вопрос" data-confirmation="Вы действительно хотите удалить вопрос?" />
-        </div>
         }
     }
 </div>
