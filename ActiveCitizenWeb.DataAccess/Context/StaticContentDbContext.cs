@@ -9,7 +9,7 @@ namespace ActiveCitizenWeb.DataAccess.Context
         private readonly IRepository<int, FaqListItem> faqListItem;
 
         public StaticContentDbContext()
-            : base()
+            : base("ActiveCitizen")
         {
             Database.SetInitializer<StaticContentDbContext>(new CreateDatabaseIfNotExists<StaticContentDbContext>());
 
