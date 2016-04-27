@@ -149,6 +149,7 @@ namespace ActiveCitizenWeb.Tests.ContentProviders
             throw new NotImplementedException();
         }
 
+
         public DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class
         {
             //TODO
