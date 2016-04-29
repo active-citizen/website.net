@@ -25,9 +25,9 @@ namespace ActiveCitizen.LDAP.IdentityProvider
             return SearchDirectory(searchFilter);
         }
 
-        public LdapEntry SearchByUserId(string userName)
+        public LdapEntry SearchByUserId(string id)
         {
-            string searchFilter = string.Format(filterTemplate, connectionSettings.UserIdAttributeKey, userName);
+            string searchFilter = string.Format(filterTemplate, connectionSettings.UserIdAttributeKey, id);
             return SearchDirectory(searchFilter);
         }
 
