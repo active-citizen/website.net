@@ -1,85 +1,39 @@
 ﻿using System;
-using System.Collections.Specialized;
 using System.DirectoryServices;
 using System.Linq;
 using System.Text;
 
 namespace ActiveCitizen.LDAP.IdentityProvider
 {
-    public class LdapConnector
+    public class LdapConnector : ILdapConnector
     {
-        private readonly LdapConnectionSettings connectionSettings;
-        private readonly string basePath = string.Empty;
+        public const string filterTemplate = "(&(objectclass=person)({0}={1}))";
+        private readonly ILdapConnectionSettings connectionSettings;
+        private readonly string basePath;
+        private readonly string serverPath;
 
-        public LdapConnector(LdapConnectionSettings connectionSettings)
+        public LdapConnector(ILdapConnectionSettings connectionSettings)
         {
             this.connectionSettings = connectionSettings;
-            basePath = string.Format("LDAP://{0}/{1}", connectionSettings.Server, connectionSettings.BaseDN);
+            basePath = string.Format("LDAP://{0}/{1}", connectionSettings.Server, connectionSettings.BasePathDN);
+            serverPath = string.Format("LDAP://{0}/", connectionSettings.Server);
         }
 
-        /*
-        string ldapfilter = "(&(objectclass=person)({0}={1}))";
-
-            try
-            {
-                string DN = "";
-                using (DirectoryEntry entry = new DirectoryEntry("LDAP://" + connectionSettings.Server + "/" + connectionSettings.BaseDN, connectionSettings.ServiceUserDN, connectionSettings.ServiceUserPassword, AuthenticationTypes.None))
-                {
-                    DirectorySearcher ds = new DirectorySearcher(entry);
-    ds.SearchScope = SearchScope.Subtree;
-                    ds.Filter = string.Format(ldapfilter, connectionSettings.UserIdAttributeName == "DN" ? "entryDN" : connectionSettings.UserIdAttributeName, userId);
-    SearchResult result = ds.FindOne();
-                    if (result != null)
-                    {
-                        DN = result.Path.Replace("LDAP://" + connectionSettings.Server + "/", "");
-
-                        user = new ApplicationUser
-                        {
-                            Id =
-                            connectionSettings.UserIdAttributeName == "DN"
-                            ? DN
-                            : (string)result.Properties[connectionSettings.UserIdAttributeName][0],
-                            UserName = (string)result.Properties[connectionSettings.UserNameAttributeName][0]
-};
-                        this.CreateAsync(user).Wait();
-                        return base.FindByIdAsync(userId);
-}
-                }
-            }
-            catch (Exception ex) { Task.FromException(ex); }
-
-            return Task.FromResult<ApplicationUser>(null);
-
-                         user = new ApplicationUser
-                        {
-                            Id =
-                            connectionSettings.UserIdAttributeName == "DN"
-                            ? DN
-                            : (string)result.Properties[connectionSettings.UserIdAttributeName][0],
-                            UserName = (string)result.Properties[connectionSettings.UserNameAttributeName][0]
-                        };
-
-                        base.CreateAsync(user).Wait();
-                        return base.FindByNameAsync(userName);
-
-             */
         public LdapEntry SearchByUserName(string userName)
         {
-            string filterTemplate = "(&(objectclass=person)({0}={1}))";
-            string searchFilter = string.Format(filterTemplate, connectionSettings.UserNameAttributeName, userName);
+            string searchFilter = string.Format(filterTemplate, connectionSettings.UserNameAttributeKey, userName);
             return SearchDirectory(searchFilter);
         }
 
         public LdapEntry SearchByUserId(string userName)
         {
-            string filterTemplate = "(&(objectclass=person)({0}={1}))";
-            string searchFilter = string.Format(filterTemplate, connectionSettings.UserIdAttributeName, userName);
+            string searchFilter = string.Format(filterTemplate, connectionSettings.UserIdAttributeKey, userName);
             return SearchDirectory(searchFilter);
         }
 
         private string GetEntryDistinguishedName(SearchResult entry)
         {
-            return entry.Path.Replace("LDAP://" + connectionSettings.Server + "/", "");
+            return entry.Path.Replace(serverPath, "");
         }
         
         private string PropertyToString(SearchResult entry, string propertyName)
@@ -92,9 +46,10 @@ namespace ActiveCitizen.LDAP.IdentityProvider
 
             if (value == null) return null;
 
+            // Special handling for byte sequence property type to fetch IDs/GUIDs
             if (value.GetType() == typeof(byte[]))
             {
-                return ((byte[])value).Aggregate(new StringBuilder(), (acc, b) => acc.Append(char.ConvertFromUtf32(b))).ToString();
+                return ((byte[])value).Aggregate(new StringBuilder(), (acc, b) => acc.AppendFormat("\\{0:X2}", b)).ToString();
             }
 
             return value.ToString();
@@ -124,20 +79,26 @@ namespace ActiveCitizen.LDAP.IdentityProvider
                 var ds = new DirectorySearcher(entry);
                 ds.SearchScope = SearchScope.Subtree;
                 ds.Filter = searchFilter;
-                ds.PropertiesToLoad.AddRange(new[]{ connectionSettings.UserIdAttributeName, connectionSettings.UserNameAttributeName });
+                ds.PropertiesToLoad.AddRange(new[]{ connectionSettings.UserIdAttributeKey, connectionSettings.UserNameAttributeKey });
                 var result = ds.FindOne();
 
                 if (result == null) return null;
 
+                var userName = PropertyToString(result, connectionSettings.UserNameAttributeKey);
                 var resultEntry = new LdapEntry
                 {
-                    UserId = PropertyToString(result, connectionSettings.UserIdAttributeName),
-                    UserName = PropertyToString(result, connectionSettings.UserNameAttributeName),
-                    DistinguishedName = GetEntryDistinguishedName(result)
+                    UserId = PropertyToString(result, connectionSettings.UserIdAttributeKey),
+                    UserName = userName,
+                    DistinguishedName = GetEntryDistinguishedName(result),
                 };
 
                 return resultEntry;
             }
+        }
+
+        public string GetUserUniqueName(string userName)
+        {
+            return string.Format(connectionSettings.UserNameTransformTemplate, userName);
         }
     }
 }

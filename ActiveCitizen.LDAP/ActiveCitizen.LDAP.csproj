@@ -86,14 +86,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IdentityProvider\ApplicationUserManager.cs" />
-    <Compile Include="IdentityProvider\ApplicationSignInManager.cs" />
-    <Compile Include="IdentityProvider\ApplicationUser.cs" />
-    <Compile Include="IdentityProvider\ApplicationDbContext.cs" />
-    <Compile Include="IdentityProvider\LdapConnectionSettings.cs" />
+    <Compile Include="IdentityProvider\ILdapConnector.cs" />
+    <Compile Include="IdentityProvider\LdapUserManager.cs" />
+    <Compile Include="IdentityProvider\LdapIdentityUser.cs" />
+    <Compile Include="IdentityProvider\ILdapConnectionSettings.cs" />
     <Compile Include="IdentityProvider\LdapConnector.cs" />
     <Compile Include="IdentityProvider\LdapEntry.cs" />
-    <Compile Include="IdentityProvider\LdapUserStorage.cs" />
+    <Compile Include="IdentityProvider\LdapUserValidator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

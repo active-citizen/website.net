@@ -49,9 +49,8 @@ namespace ActiveCitizenWeb.StaticContentCMS.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Display(Name = "User Name")]
+        public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -79,6 +78,13 @@ namespace ActiveCitizenWeb.StaticContentCMS.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+    }
+
+    public class RegisterUsingLdapViewModel
+    {
+        [Required]
+        [Display(Name = "Login name")]
+        public string LoginName { get; set; }
     }
 
     public class ResetPasswordViewModel
