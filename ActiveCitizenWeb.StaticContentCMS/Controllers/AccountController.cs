@@ -1,7 +1,4 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Security.Claims;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -10,6 +7,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ActiveCitizenWeb.StaticContentCMS.Models;
 using ActiveCitizen.LDAP.IdentityProvider;
+using ActiveCitizenWeb.StaticContentCMS.Services;
 
 namespace ActiveCitizenWeb.StaticContentCMS.Controllers
 {
@@ -76,7 +74,7 @@ namespace ActiveCitizenWeb.StaticContentCMS.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -144,6 +142,39 @@ namespace ActiveCitizenWeb.StaticContentCMS.Controllers
         }
 
         //
+        // GET: /Account/RegisterUsingLdap
+        [AllowAnonymous]
+        public ActionResult RegisterUsingLdap()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Account/RegisterUsingLdap
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterUsingLdap(RegisterUsingLdapViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new LdapIdentityUser { UserName = model.LoginName };
+                var result = await UserManager.CreateUsingLdapAsync(user);
+
+                if (result.Succeeded)
+                {
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                    return RedirectToAction("Index", "Home");
+                }
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        //
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
@@ -152,8 +183,9 @@ namespace ActiveCitizenWeb.StaticContentCMS.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new LdapIdentityUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
+
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
@@ -368,7 +400,7 @@ namespace ActiveCitizenWeb.StaticContentCMS.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new LdapIdentityUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

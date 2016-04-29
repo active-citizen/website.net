@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Autofac;
-using ActiveCitizenWeb.StaticContentCMS.Controllers;
+﻿using Autofac;
 using AutoMapper;
 using ActiveCitizen.Model.StaticContent.Faq;
 using ActiveCitizenWeb.StaticContentCMS.ViewModel.Faq;
+using ActiveCitizenWeb.StaticContentCMS.Configuration;
 
 namespace ActiveCitizenWeb.StaticContentCMS.Services
 {
@@ -14,8 +10,8 @@ namespace ActiveCitizenWeb.StaticContentCMS.Services
     {
         public static void Initialize(ContainerBuilder builder)
         {
-            builder.RegisterType<FaqListController>().AsSelf();
             builder.RegisterInstance(InitializeMapping()).SingleInstance();
+            builder.RegisterType<LdapConnectionSettings>().AsImplementedInterfaces().WithParameter("section", "");
         }
 
         static IMapper InitializeMapping()
