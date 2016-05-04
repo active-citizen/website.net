@@ -3,6 +3,7 @@ using AutoMapper;
 using ActiveCitizen.Model.StaticContent.Faq;
 using ActiveCitizenWeb.StaticContentCMS.ViewModel.Faq;
 using ActiveCitizenWeb.StaticContentCMS.Configuration;
+using ActiveCitizen.LDAP.IdentityProvider;
 
 namespace ActiveCitizenWeb.StaticContentCMS.Services
 {
@@ -11,8 +12,8 @@ namespace ActiveCitizenWeb.StaticContentCMS.Services
         public static void Initialize(ContainerBuilder builder)
         {
             builder.RegisterInstance(InitializeMapping()).SingleInstance();
-            builder.RegisterType<LdapConnectionSettings>().AsImplementedInterfaces().WithParameter("section", "");
-            builder.RegisterType<AppSettings>().AsImplementedInterfaces();
+            builder.Register(ctx => new LdapConnectionSettingsInitializer().Initialize()).As<ILdapConnectionSettings>().SingleInstance();
+            builder.RegisterType<AppSettings>().AsImplementedInterfaces().SingleInstance();
         }
 
         static IMapper InitializeMapping()

@@ -231,7 +231,8 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Configuration\AppSettings.cs" />
     <Compile Include="Configuration\IAppSettings.cs" />
-    <Compile Include="Configuration\LdapConnectionSettings.cs" />
+    <Compile Include="Configuration\LdapConnectionSettingsInitializer.cs" />
+    <Compile Include="Configuration\LdapConnectionsSettings.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\FaqListController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
