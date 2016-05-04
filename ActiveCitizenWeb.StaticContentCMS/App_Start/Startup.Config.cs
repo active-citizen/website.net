@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Autofac;
+﻿using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
 
@@ -16,7 +12,7 @@ namespace ActiveCitizenWeb.StaticContentCMS
 {
     public partial class Startup
     {
-        public void RegisterDependencies(IAppBuilder app)
+        public IContainer RegisterDependencies(IAppBuilder app)
         {
             var builder = new ContainerBuilder();
 
@@ -32,6 +28,8 @@ namespace ActiveCitizenWeb.StaticContentCMS
 
             app.UseAutofacMiddleware(container);
             app.UseAutofacMvc();
+
+            return container;
         }
     }
 }

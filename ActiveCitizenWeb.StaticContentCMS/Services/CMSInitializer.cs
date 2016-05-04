@@ -12,6 +12,7 @@ namespace ActiveCitizenWeb.StaticContentCMS.Services
         {
             builder.RegisterInstance(InitializeMapping()).SingleInstance();
             builder.RegisterType<LdapConnectionSettings>().AsImplementedInterfaces().WithParameter("section", "");
+            builder.RegisterType<AppSettings>().AsImplementedInterfaces();
         }
 
         static IMapper InitializeMapping()
