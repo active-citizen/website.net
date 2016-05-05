@@ -14,13 +14,10 @@ namespace ActiveCitizenWeb.StaticContentCMS
             var container = RegisterDependencies(app);
             ConfigureAuth(app);
 
-            using (var scope = container.BeginLifetimeScope())
+            var appSettings = container.Resolve<IAppSettings>();
+            if (appSettings.CreateDefaultCredentialsOnStart)
             {
-                var appSettings = scope.Resolve<IAppSettings>();
-                if (appSettings.CreateDefaultCredentialsOnStart)
-                {
-                    CreateDefaultUsersAndRoles();
-                }
+                CreateDefaultUsersAndRoles();
             }
         }
     }
