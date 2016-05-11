@@ -15,6 +15,17 @@ namespace ActiveCitizen.LDAP.IdentityProvider
             : base(store)
         {
             this.ldapConnector = ldapConnector;
+            UserValidator = new LdapUserValidator<TUser>(this)
+            {
+                AllowOnlyAlphanumericUserNames = false,
+                RequireUniqueEmail = true
+            };
+        }
+
+        public IdentityResult CreateUsingLdap(TUser user)
+        {
+            var result = Task.Factory.StartNew(() => CreateUsingLdapAsync(user)).Unwrap().GetAwaiter().GetResult();
+            return result;
         }
 
         public async Task<IdentityResult> CreateUsingLdapAsync(TUser user)
@@ -27,13 +38,13 @@ namespace ActiveCitizen.LDAP.IdentityProvider
                 if (ldapEntry == null)
                 {
                     return new IdentityResult(
-                        string.Format("Login name {0} is not found in the LDAP catalog.", loginName));
+                        string.Format("Логин {0} не найден в LDAP каталоге.", loginName));
                 }
             }
             catch (Exception ex)
             {
                 //TODO log exception
-                return new IdentityResult("Failed to search user login in LDAP catalog.");
+                return new IdentityResult("Сбой при работе с внешним LDAP каталогом.");
             }
 
             user.IsLdapUser = true;

@@ -10,6 +10,7 @@ using ActiveCitizenWeb.StaticContentCMS.Services;
 using Autofac.Core.Lifetime;
 using System.Linq;
 using System.Collections.Generic;
+using ActiveCitizenWeb.Infrastructure.UserManagement;
 
 namespace ActiveCitizenWeb.StaticContentCMS
 {
@@ -19,7 +20,7 @@ namespace ActiveCitizenWeb.StaticContentCMS
         public void ConfigureAuth(IAppBuilder app)
         {
             // Configure the db context, user manager and signin manager to use a single instance per request
-            app.CreatePerOwinContext(() => new IdentityDbContext<LdapIdentityUser>("ActiveCitizen.Auth", throwIfV1Schema: false));
+            app.CreatePerOwinContext(() => new ApplicationIdentityDbContext());
             app.CreatePerOwinContext<ApplicationUserManager>(CreateAndSetupUserManager);
             app.CreatePerOwinContext<ApplicationSignInManager>(CreateSignInManager);
 
@@ -43,14 +44,14 @@ namespace ActiveCitizenWeb.StaticContentCMS
 
         public void CreateDefaultUsersAndRoles()
         {
-            using (var context = new IdentityDbContext<LdapIdentityUser>("ActiveCitizen.Auth", throwIfV1Schema: false))
+            using (var context = new ApplicationIdentityDbContext())
             {
                 const string adminLogin = "admin";
                 const string adminPassword = "secret";
                 const string adminRole = "admin";
-                using (var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context)))
+                using (var roleManager = new ApplicationRoleManager(new RoleStore<IdentityRole>(context)))
                 {
-                    var roles = new List<string> { adminRole, "editor", "user" };
+                    var roles = new List<string> { adminRole, "faq-list-editor", "user" };
                     if (!roleManager.Roles.Any())
                     {
                         roles.ForEach(roleName => roleManager.Create(new IdentityRole(roleName)));
@@ -61,7 +62,7 @@ namespace ActiveCitizenWeb.StaticContentCMS
                 {
                     if (!manager.Users.Any(user=>user.Roles.Any(role => role.RoleId == adminRole)))
                     {
-                        manager.Create(new LdapIdentityUser { UserName = adminLogin }, adminPassword);
+                        manager.Create(new LdapIdentityUser { UserName = adminLogin, Email = adminLogin }, adminPassword);
                         var user = manager.FindByName(adminLogin);
                         manager.AddToRole(user.Id, adminRole);
                     }
@@ -77,19 +78,9 @@ namespace ActiveCitizenWeb.StaticContentCMS
         private ApplicationUserManager CreateAndSetupUserManager(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
             var scope = (LifetimeScope)context.Environment["autofac:OwinLifetimeScope"];
-            ILdapConnectionSettings ldapSettings = (ILdapConnectionSettings)scope.GetService(typeof(ILdapConnectionSettings));
-
-            var ldapConnector = new LdapConnector(ldapSettings);
-
-            var manager = new ApplicationUserManager(new UserStore<LdapIdentityUser>(context.Get<IdentityDbContext<LdapIdentityUser>>()), ldapConnector);
+            var ldapConnector = (ILdapConnector)scope.GetService(typeof(ILdapConnector));
+            var manager = new ApplicationUserManager(new UserStore<LdapIdentityUser>(context.Get<ApplicationIdentityDbContext>()), ldapConnector);
             
-            // Configure validation logic for usernames
-            manager.UserValidator = new LdapUserValidator<LdapIdentityUser>(manager)
-            {
-                AllowOnlyAlphanumericUserNames = false,
-                RequireUniqueEmail = true
-            };
-
             // Configure validation logic for passwords
             manager.PasswordValidator = new PasswordValidator
             {

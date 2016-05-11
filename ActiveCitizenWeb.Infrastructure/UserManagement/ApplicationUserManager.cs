@@ -1,7 +1,7 @@
 ﻿using ActiveCitizen.LDAP.IdentityProvider;
 using Microsoft.AspNet.Identity;
 
-namespace ActiveCitizenWeb.StaticContentCMS.Services
+namespace ActiveCitizenWeb.Infrastructure.UserManagement
 {
     public class ApplicationUserManager : LdapUserManager<LdapIdentityUser>
     {

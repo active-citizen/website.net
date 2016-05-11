@@ -49,15 +49,15 @@ namespace ActiveCitizenWeb.StaticContentCMS.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "User Name")]
+        [Display(Name = "Логин")]
         public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Пароль")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "Запомнить")]
         public bool RememberMe { get; set; }
     }
 
@@ -78,13 +78,6 @@ namespace ActiveCitizenWeb.StaticContentCMS.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
-    }
-
-    public class RegisterUsingLdapViewModel
-    {
-        [Required]
-        [Display(Name = "Login name")]
-        public string LoginName { get; set; }
     }
 
     public class ResetPasswordViewModel

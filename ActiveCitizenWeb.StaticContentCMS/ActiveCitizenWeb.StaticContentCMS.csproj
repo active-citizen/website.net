@@ -237,6 +237,7 @@
     <Compile Include="Controllers\FaqListController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\UserManagementController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -244,13 +245,16 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ApplicationSignInManager.cs" />
-    <Compile Include="Services\ApplicationUserManager.cs" />
     <Compile Include="Services\CMSInitializer.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utils\StringExtensions.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\Faq\QuestionsVM.cs" />
     <Compile Include="ViewModel\Faq\QuestionVM.cs" />
+    <Compile Include="ViewModel\Navigation\NavigationElement.cs" />
+    <Compile Include="ViewModel\UserManagement\UserUpdateModel.cs" />
+    <Compile Include="ViewModel\UserManagement\UserCreateModel.cs" />
+    <Compile Include="ViewModel\UserManagement\UserListEntryModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -450,8 +454,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -487,6 +489,10 @@
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\readme.md" />
     <Content Include="Scripts\tinymce\langs\readme.md" />
     <Content Include="Views\Account\RegisterUsingLdap.cshtml" />
+    <Content Include="Views\UserManagement\Index.cshtml" />
+    <Content Include="Views\UserManagement\Create.cshtml" />
+    <Content Include="Views\UserManagement\Delete.cshtml" />
+    <Content Include="Views\UserManagement\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

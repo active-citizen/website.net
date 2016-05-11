@@ -12,6 +12,7 @@ namespace ActiveCitizenWeb.StaticContentCMS
         public void Configuration(IAppBuilder app)
         {
             var container = RegisterDependencies(app);
+
             ConfigureAuth(app);
 
             var appSettings = container.Resolve<IAppSettings>();

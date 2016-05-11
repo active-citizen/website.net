@@ -7,6 +7,7 @@ using ActiveCitizenWeb.Infrastructure.Provider;
 
 namespace ActiveCitizenWeb.StaticContentCMS.Controllers
 {
+    [Authorize(Roles="faq-list-editor")]
     public class FaqListController : Controller
     {
         public static class ErrorCodes

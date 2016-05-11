@@ -19,7 +19,7 @@ namespace ActiveCitizenWeb.StaticContentCMS
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
 
             Initializer.Initialize(builder);
-            CMSInitializer.Initialize(builder);
+            CMSInitializer.Initialize(builder, app);
 
             var container = builder.Build();
 

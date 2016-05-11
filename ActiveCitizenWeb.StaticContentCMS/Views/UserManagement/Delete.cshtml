@@ -1,0 +1,42 @@
+﻿@using ActiveCitizenWeb.StaticContentCMS.Controllers;
+
+@{
+    ViewBag.Title = "Удаление пользователя";
+}
+
+<h2>Удаление пользователя</h2>
+@if (TempData["Error"] == null)
+{
+    using (Html.BeginForm("Delete"))
+    {
+    @Html.AntiForgeryToken()
+    @Html.Hidden("userName", (string)ViewBag.UserName)
+    <div class="form-horizontal">
+        <h4>Действительно удалить пользователя <em>"@ViewBag.UserName"</em> ?</h4>
+        <div class="form-group">
+            <div class="col-md-2">
+                <input type="submit" value="Да" class="btn btn-default btn-block" />
+            </div>
+            <div class="visible-xs visible-sm">
+                &nbsp;
+            </div>
+            <div class="col-md-offset-1 col-md-2">
+                <input type="button" value="Нет" class="btn btn-default btn-block" onclick="window.location.href='@Url.Action("Index")'; return false;" />
+            </div>
+        </div>
+    </div>
+    }
+}
+else
+{
+    if ((string)TempData["Error"] == UserManagementController.ErrorCodes.FailedToDeleteUser)
+    {
+        <div class="alert alert-warning" role="alert">
+            <strong>Произошел сбой при удалении пользователя.</strong>
+        </div>
+    }
+}
+
+<div>
+    @Html.ActionLink("Вернуться к списку пользователей", "Index")
+</div>
