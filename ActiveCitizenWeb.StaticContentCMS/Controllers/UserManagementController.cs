@@ -4,10 +4,11 @@ using System.Web.Mvc;
 using ActiveCitizenWeb.Infrastructure.Provider;
 using System;
 using AutoMapper;
+using ActiveCitizen.Common;
 
 namespace ActiveCitizenWeb.StaticContentCMS.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = AgConsts.Roles.Admin)]
     public class UserManagementController : Controller
     {
         public static class ErrorCodes

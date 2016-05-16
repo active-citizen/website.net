@@ -506,6 +506,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ActiveCitizen.Common\ActiveCitizen.Common.csproj">
+      <Project>{f1714347-15dd-4b33-bd22-fcfc29dcc08b}</Project>
+      <Name>ActiveCitizen.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ActiveCitizen.LDAP\ActiveCitizen.LDAP.csproj">
       <Project>{54e23b88-a681-4d2e-b168-1c0b3bad9499}</Project>
       <Name>ActiveCitizen.LDAP</Name>

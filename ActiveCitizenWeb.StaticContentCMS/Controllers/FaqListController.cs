@@ -4,10 +4,11 @@ using ActiveCitizenWeb.StaticContentCMS.ViewModel.Faq;
 using ActiveCitizen.Model.StaticContent.Faq;
 using AutoMapper;
 using ActiveCitizenWeb.Infrastructure.Provider;
+using ActiveCitizen.Common;
 
 namespace ActiveCitizenWeb.StaticContentCMS.Controllers
 {
-    [Authorize(Roles="faq-list-editor")]
+    [Authorize(Roles= AgConsts.Roles.FaqListEditor)]
     public class FaqListController : Controller
     {
         public static class ErrorCodes

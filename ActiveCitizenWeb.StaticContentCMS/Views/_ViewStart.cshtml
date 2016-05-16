@@ -1,4 +1,5 @@
 ﻿@using ActiveCitizenWeb.StaticContentCMS.ViewModel.Navigation;
+@using ActiveCitizen.Common;
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewContext.ViewBag.NavigationElements = new List<NavigationElement>
@@ -8,7 +9,7 @@
             MenuLabel = "Пользователи",
             Title = "Управление пользователями и ролями",
             Description = "Создание локальных пользователей и регистрация пользователей из внешнего LDAP каталога. Управление ролями пользователей.",
-            ShowForRoles = new string[] { "admin" },
+            ShowForRoles = new string[] { AgConsts.Roles.Admin },
             ControllerName = "UserManagement",
             ActionName = "Index"
         },
@@ -18,7 +19,7 @@
             MenuLabel = "Список FAQ",
             Title = "Управление списком часто задаваемых вопросов",
             Description = "Создание и редактирование часто задаваемых вопросов и разделов группировки списка.",
-            ShowForRoles = new string[] { "faq-list-editor" },
+            ShowForRoles = new string[] { AgConsts.Roles.FaqListEditor },
             ControllerName = "FaqList",
             ActionName = "Index",
         },

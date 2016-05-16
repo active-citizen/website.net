@@ -11,6 +11,7 @@ using Autofac.Core.Lifetime;
 using System.Linq;
 using System.Collections.Generic;
 using ActiveCitizenWeb.Infrastructure.UserManagement;
+using ActiveCitizen.Common;
 
 namespace ActiveCitizenWeb.StaticContentCMS
 {
@@ -48,10 +49,9 @@ namespace ActiveCitizenWeb.StaticContentCMS
             {
                 const string adminLogin = "admin";
                 const string adminPassword = "secret";
-                const string adminRole = "admin";
                 using (var roleManager = new ApplicationRoleManager(new RoleStore<IdentityRole>(context)))
                 {
-                    var roles = new List<string> { adminRole, "faq-list-editor", "user" };
+                    var roles = new List<string> { AgConsts.Roles.Admin, AgConsts.Roles.FaqListEditor };
                     if (!roleManager.Roles.Any())
                     {
                         roles.ForEach(roleName => roleManager.Create(new IdentityRole(roleName)));
@@ -60,11 +60,11 @@ namespace ActiveCitizenWeb.StaticContentCMS
 
                 using (var manager = new UserManager<LdapIdentityUser>(new UserStore<LdapIdentityUser>(context)))
                 {
-                    if (!manager.Users.Any(user=>user.Roles.Any(role => role.RoleId == adminRole)))
+                    if (!manager.Users.Any(user=>user.Roles.Any(role => role.RoleId == AgConsts.Roles.Admin)))
                     {
                         manager.Create(new LdapIdentityUser { UserName = adminLogin, Email = adminLogin }, adminPassword);
                         var user = manager.FindByName(adminLogin);
-                        manager.AddToRole(user.Id, adminRole);
+                        manager.AddToRole(user.Id, AgConsts.Roles.Admin);
                     }
                 }
             }
