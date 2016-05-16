@@ -3,10 +3,10 @@ using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
 
 using ActiveCitizenWeb.StaticContentCMS.Services;
-using ActiveCitizenWeb.Factory;
 using System.Web.Mvc;
 using System.Web.Http;
 using Owin;
+using ActiveCitizenWeb.Infrastructure.AutofacModules;
 
 namespace ActiveCitizenWeb.StaticContentCMS
 {
@@ -18,7 +18,12 @@ namespace ActiveCitizenWeb.StaticContentCMS
 
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
 
-            Initializer.Initialize(builder);
+            var contentProviderModule = new ContentProvidersModule();
+            builder.RegisterModule(contentProviderModule);
+
+            var userManagementModule = new UserManagementModule(app);
+            builder.RegisterModule(userManagementModule);
+
             CMSInitializer.Initialize(builder, app);
 
             var container = builder.Build();

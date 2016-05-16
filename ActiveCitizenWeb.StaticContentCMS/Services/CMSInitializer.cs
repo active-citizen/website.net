@@ -29,29 +29,6 @@ namespace ActiveCitizenWeb.StaticContentCMS.Services
             // Ldap infrastructure and settings
             builder.Register(ctx => new LdapConnectionSettingsInitializer().Initialize()).As<ILdapConnectionSettings>();
             builder.RegisterType<LdapConnector>().As<ILdapConnector>();
-
-            // Identity DB context
-            builder.RegisterType<ApplicationIdentityDbContext>().Named<DbContext>("Identity");
-
-            // Role manager - a separate instance is utilized in UserManagementProvider
-            builder.RegisterType<RoleStore<IdentityRole>>().As<IRoleStore<IdentityRole, string>>().WithParameter(ResolvedParameter.ForNamed<DbContext>("Identity"));
-            builder.RegisterType<ApplicationRoleManager>().AsSelf();
-
-            // User manager - a separate instance is utilized in UserManagementProvider
-            // (Data protection provider is required in User manager implementation to perform password updates)
-            var dataProtectionProvider = app.GetDataProtectionProvider();
-            builder.RegisterInstance(dataProtectionProvider).As<IDataProtectionProvider>();
-
-            builder.RegisterType<UserStore<LdapIdentityUser>>().As<IUserStore<LdapIdentityUser>>().WithParameter(ResolvedParameter.ForNamed<DbContext>("Identity"));
-            builder.RegisterType<ApplicationUserManager>().AsSelf().OnActivated(handler =>
-                {
-                    handler.Instance.UserTokenProvider = 
-                        new DataProtectorTokenProvider<LdapIdentityUser>(
-                            handler.Context.Resolve<IDataProtectionProvider>().Create("ASP.NET Identity"));
-                });
-
-            // BL infrastructure
-            builder.RegisterType<UserManagementProvider>().As<IUserManagementProvider>();
         }
 
         static IMapper InitializeMapping()

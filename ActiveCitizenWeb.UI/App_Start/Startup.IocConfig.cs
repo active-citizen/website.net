@@ -1,11 +1,8 @@
-﻿using ActiveCitizenWeb.Factory;
+﻿using ActiveCitizenWeb.Infrastructure.AutofacModules;
 using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
 using Owin;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web.Http;
 using System.Web.Mvc;
 
@@ -31,7 +28,8 @@ namespace ActiveCitizenWeb.UI
 
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
 
-            Initializer.Initialize(builder);
+            var contentProvidersModule = new ContentProvidersModule();
+            builder.RegisterModule(contentProvidersModule);
 
             var container = builder.Build();
 

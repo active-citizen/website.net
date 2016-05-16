@@ -323,10 +323,6 @@
       <Project>{94DAC6B3-D38A-466E-A13D-5D4C62374C0A}</Project>
       <Name>ActiveCitizenWeb.DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ActiveCitizenWeb.Factory\ActiveCitizenWeb.Factory.csproj">
-      <Project>{912ad17e-722c-40a3-a04a-5cb59e950e73}</Project>
-      <Name>ActiveCitizenWeb.Factory</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ActiveCitizenWeb.Infrastructure\ActiveCitizenWeb.Infrastructure.csproj">
       <Project>{2E2D0B09-05E5-4249-821F-2E3E278EFD13}</Project>
       <Name>ActiveCitizenWeb.Infrastructure</Name>

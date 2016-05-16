@@ -2,11 +2,11 @@
 using ActiveCitizenWeb.Infrastructure.Provider;
 using Autofac;
 
-namespace ActiveCitizenWeb.Factory
+namespace ActiveCitizenWeb.Infrastructure.AutofacModules
 {
-    public class Initializer
+    public class ContentProvidersModule : Module
     {
-        public static void Initialize(ContainerBuilder builder)
+        protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<StaticContentProvider>().As<IStaticContentProvider>();
             builder.RegisterType<StaticContentDbContext>().As<IStaticContentDbContext>();

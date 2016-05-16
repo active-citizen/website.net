@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActiveCitizenWeb.UI", "Acti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActiveCitizenWeb.Tests", "ActiveCitizenWeb.Tests\ActiveCitizenWeb.Tests.csproj", "{8016E99B-6A70-48B1-8579-022E930016C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActiveCitizenWeb.Factory", "ActiveCitizenWeb.Factory\ActiveCitizenWeb.Factory.csproj", "{912AD17E-722C-40A3-A04A-5CB59E950E73}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActiveCitizenWeb.DataAccess", "ActiveCitizenWeb.DataAccess\ActiveCitizenWeb.DataAccess.csproj", "{94DAC6B3-D38A-466E-A13D-5D4C62374C0A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActiveCitizen.Common", "ActiveCitizen.Common\ActiveCitizen.Common.csproj", "{F1714347-15DD-4B33-BD22-FCFC29DCC08B}"
@@ -37,10 +35,6 @@ Global
 		{8016E99B-6A70-48B1-8579-022E930016C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8016E99B-6A70-48B1-8579-022E930016C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8016E99B-6A70-48B1-8579-022E930016C6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{912AD17E-722C-40A3-A04A-5CB59E950E73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{912AD17E-722C-40A3-A04A-5CB59E950E73}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{912AD17E-722C-40A3-A04A-5CB59E950E73}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{912AD17E-722C-40A3-A04A-5CB59E950E73}.Release|Any CPU.Build.0 = Release|Any CPU
 		{94DAC6B3-D38A-466E-A13D-5D4C62374C0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{94DAC6B3-D38A-466E-A13D-5D4C62374C0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94DAC6B3-D38A-466E-A13D-5D4C62374C0A}.Release|Any CPU.ActiveCfg = Release|Any CPU

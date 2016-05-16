@@ -26,6 +26,5 @@ namespace ActiveCitizenWeb.Infrastructure.Provider
 
         void DeleteFaqListCategory(int id);
         void DeleteFaqListItem(int id);
-
     }
 }
