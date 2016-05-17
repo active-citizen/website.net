@@ -8,6 +8,12 @@ namespace ActiveCitizenWeb.DataAccess.Context
         private readonly IRepository<int, FaqListCategory> faqListCategory;
         private readonly IRepository<int, FaqListItem> faqListItem;
 
+        static StaticContentDbContext()
+        {
+            // Workaround for SqlClient provider missing in the site bin folder after build
+            var ensureSqlClientProvider = System.Data.Entity.SqlServer.SqlProviderServices.Instance;
+        }
+
         public StaticContentDbContext()
             : base("ActiveCitizen")
         {

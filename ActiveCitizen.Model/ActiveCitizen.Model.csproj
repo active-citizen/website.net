@@ -49,6 +49,8 @@
     <Compile Include="Shared\IFeedItem.cs" />
     <Compile Include="Shared\Image.cs" />
     <Compile Include="Shared\Moscow\MoscowDisctrict.cs" />
+    <Compile Include="StaticContent\Faq\Api\FaqListCategory.cs" />
+    <Compile Include="StaticContent\Faq\Api\FaqListItem.cs" />
     <Compile Include="StaticContent\Faq\FaqListCategory.cs" />
     <Compile Include="StaticContent\Faq\FaqListItem.cs" />
     <Compile Include="StaticContent\Result\AllResults.cs" />

@@ -36,7 +36,7 @@ namespace ActiveCitizenWeb.Tests.Controllers
             category4.Items = null;
 
 
-            var providerMock = new Mock<IStaticContentProvider>();
+            var providerMock = new Mock<IStaticContentManagementProvider>();
             providerMock.Setup(p => p.GetAllItems()).Returns(items);
             providerMock.Setup(p => p.GetAllCategories()).Returns(categories);
 

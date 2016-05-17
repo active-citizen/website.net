@@ -18,7 +18,7 @@ namespace ActiveCitizenWeb.StaticContentCMS
 
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
 
-            var contentProviderModule = new ContentProvidersModule();
+            var contentProviderModule = new ContentManagementProvidersModule();
             builder.RegisterModule(contentProviderModule);
 
             var userManagementModule = new UserManagementModule(app);

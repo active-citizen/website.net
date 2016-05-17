@@ -91,14 +91,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutofacModules\ContentProvidersModule.cs" />
+    <Compile Include="AutofacModules\ContentManagementProvidersModule.cs" />
     <Compile Include="AutofacModules\UserManagementModule.cs" />
+    <Compile Include="Provider\IStaticContentProvider.cs" />
+    <Compile Include="Provider\StaticContentProvider.cs" />
     <Compile Include="UserManagement\ApplicationIdentityDbContext.cs" />
     <Compile Include="UserManagement\ApplicationRoleManager.cs" />
     <Compile Include="UserManagement\ApplicationUserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Provider\IStaticContentProvider.cs" />
+    <Compile Include="Provider\IStaticContentManagementProvider.cs" />
     <Compile Include="Provider\IUserManagementProvider.cs" />
-    <Compile Include="Provider\StaticContentProvider.cs" />
+    <Compile Include="Provider\StaticContentManagementProvider.cs" />
     <Compile Include="Provider\UserManagementProvider.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActiveCitizenWeb.StaticCont
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActiveCitizenWeb.Infrastructure", "ActiveCitizenWeb.Infrastructure\ActiveCitizenWeb.Infrastructure.csproj", "{2E2D0B09-05E5-4249-821F-2E3E278EFD13}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActiveCitizenWeb.Api", "ActiveCitizenWeb.Api\ActiveCitizenWeb.Api.csproj", "{9E681B16-AAA5-4F09-8EE1-A65B805EAC1E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{2E2D0B09-05E5-4249-821F-2E3E278EFD13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E2D0B09-05E5-4249-821F-2E3E278EFD13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E2D0B09-05E5-4249-821F-2E3E278EFD13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E681B16-AAA5-4F09-8EE1-A65B805EAC1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E681B16-AAA5-4F09-8EE1-A65B805EAC1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E681B16-AAA5-4F09-8EE1-A65B805EAC1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E681B16-AAA5-4F09-8EE1-A65B805EAC1E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

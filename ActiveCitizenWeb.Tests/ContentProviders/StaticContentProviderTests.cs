@@ -15,7 +15,7 @@ namespace ActiveCitizenWeb.Tests.ContentProviders
     public class StaticContentProviderTests
     {
         /*
-        private IStaticContentProvider provider;
+        private IStaticContentManagementProvider provider;
         private Mock<IFaqContext> dbContextMock;
 
         [TestInitialize]

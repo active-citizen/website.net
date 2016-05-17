@@ -6,9 +6,9 @@ namespace ActiveCitizenWeb.UI.Controllers
 {
     public class FaqListController : Controller
     {
-        private readonly IStaticContentProvider staticContentProvider;
+        private readonly IStaticContentManagementProvider staticContentProvider;
 
-        public FaqListController(IStaticContentProvider staticContentProvider)
+        public FaqListController(IStaticContentManagementProvider staticContentProvider)
         {
             this.staticContentProvider = staticContentProvider;
         }

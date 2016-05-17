@@ -16,10 +16,10 @@ namespace ActiveCitizenWeb.StaticContentCMS.Controllers
             public const string CannotDeleteCategoryThatContainsQuestions = "CategoryNotEmpty";
         }
 
-        private readonly IStaticContentProvider _staticContentProvider;
+        private readonly IStaticContentManagementProvider _staticContentProvider;
         private readonly IMapper _mapper;
 
-        public FaqListController(IStaticContentProvider staticContentProvider, IMapper mapper)
+        public FaqListController(IStaticContentManagementProvider staticContentProvider, IMapper mapper)
         {
             _staticContentProvider = staticContentProvider;
             _mapper = mapper;

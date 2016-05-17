@@ -28,7 +28,7 @@ namespace ActiveCitizenWeb.UI
 
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
 
-            var contentProvidersModule = new ContentProvidersModule();
+            var contentProvidersModule = new ContentManagementProvidersModule();
             builder.RegisterModule(contentProvidersModule);
 
             var container = builder.Build();
