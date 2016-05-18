@@ -12,6 +12,7 @@ using System.Linq;
 using System.Collections.Generic;
 using ActiveCitizenWeb.Infrastructure.UserManagement;
 using ActiveCitizen.Common;
+using ActiveCitizenWeb.DataAccess.Context;
 
 namespace ActiveCitizenWeb.StaticContentCMS
 {

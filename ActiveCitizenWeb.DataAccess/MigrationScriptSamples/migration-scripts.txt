@@ -1,0 +1,19 @@
+﻿Enable-Migrations -ContextTypeName ActiveCitizenWeb.DataAccess.Context.ApplicationIdentityDbContext -Force -MigrationsDirectory:Migrations\ApplicationIdentity
+
+Add-Migration -Configuration ActiveCitizenWeb.DataAccess.Migrations.ApplicationIdentity.Configuration <migration_name>
+
+Get-Migrations -Configuration ActiveCitizenWeb.DataAccess.Migrations.ApplicationIdentity.Configuration
+
+Update-Database -Configuration ActiveCitizenWeb.DataAccess.Migrations.ApplicationIdentity.Configuration -Verbose
+Update-Database -Configuration ActiveCitizenWeb.DataAccess.Migrations.ApplicationIdentity.Configuration -Verbose -TargetMigration:"<migration_name>"
+
+####
+
+Enable-Migrations -ContextTypeName ActiveCitizenWeb.DataAccess.Context.StaticContentDbContext -Force -MigrationsDirectory:Migrations\StaticContent
+
+Add-Migration -Configuration ActiveCitizenWeb.DataAccess.Migrations.StaticContent.Configuration <migration_name>
+
+Get-Migrations -Configuration ActiveCitizenWeb.DataAccess.Migrations.StaticContent.Configuration
+
+Update-Database -Configuration ActiveCitizenWeb.DataAccess.Migrations.StaticContent.Configuration -Verbose
+Update-Database -Configuration ActiveCitizenWeb.DataAccess.Migrations.StaticContent.Configuration -Verbose -TargetMigration:"<migration_name>"

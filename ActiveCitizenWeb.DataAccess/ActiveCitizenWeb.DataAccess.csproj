@@ -38,6 +38,14 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -51,11 +59,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Context\ApplicationIdentityDbContext.cs" />
     <Compile Include="Context\IStaticContentDbContext.cs" />
     <Compile Include="Context\StaticContentDbContext.cs" />
     <Compile Include="Context\IRepository.cs" />
     <Compile Include="Context\RepositoryBase.cs" />
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\ApplicationIdentity\201605171546263_Initial.cs" />
+    <Compile Include="Migrations\ApplicationIdentity\201605171546263_Initial.Designer.cs">
+      <DependentUpon>201605171546263_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\ApplicationIdentity\Configuration.cs" />
+    <Compile Include="Migrations\StaticContent\201605171545284_Initial.cs" />
+    <Compile Include="Migrations\StaticContent\201605171545284_Initial.Designer.cs">
+      <DependentUpon>201605171545284_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\StaticContent\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -65,10 +83,25 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ActiveCitizen.LDAP\ActiveCitizen.LDAP.csproj">
+      <Project>{54e23b88-a681-4d2e-b168-1c0b3bad9499}</Project>
+      <Name>ActiveCitizen.LDAP</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ActiveCitizen.Model\ActiveCitizen.Model.csproj">
       <Project>{43C56219-1224-45DD-8CC1-2BBA0B7E85D7}</Project>
       <Name>ActiveCitizen.Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\ApplicationIdentity\201605171546263_Initial.resx">
+      <DependentUpon>201605171546263_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\StaticContent\201605171545284_Initial.resx">
+      <DependentUpon>201605171545284_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MigrationScriptSamples\migration-scripts.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

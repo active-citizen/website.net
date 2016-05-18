@@ -95,7 +95,6 @@
     <Compile Include="AutofacModules\UserManagementModule.cs" />
     <Compile Include="Provider\IStaticContentProvider.cs" />
     <Compile Include="Provider\StaticContentProvider.cs" />
-    <Compile Include="UserManagement\ApplicationIdentityDbContext.cs" />
     <Compile Include="UserManagement\ApplicationRoleManager.cs" />
     <Compile Include="UserManagement\ApplicationUserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

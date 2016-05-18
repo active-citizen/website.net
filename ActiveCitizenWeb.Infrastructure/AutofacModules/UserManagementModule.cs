@@ -1,4 +1,5 @@
 ﻿using ActiveCitizen.LDAP.IdentityProvider;
+using ActiveCitizenWeb.DataAccess.Context;
 using ActiveCitizenWeb.Infrastructure.Provider;
 using ActiveCitizenWeb.Infrastructure.UserManagement;
 using Autofac;

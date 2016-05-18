@@ -17,7 +17,7 @@ namespace ActiveCitizenWeb.DataAccess.Context
         public StaticContentDbContext()
             : base("ActiveCitizen")
         {
-            Database.SetInitializer<StaticContentDbContext>(new CreateDatabaseIfNotExists<StaticContentDbContext>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<StaticContentDbContext, Migrations.StaticContent.Configuration>(true));
 
             faqListCategory = new RepositoryBase<int, FaqListCategory>(this, cat => cat.Id);
 
